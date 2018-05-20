@@ -17,6 +17,7 @@
  *  11) BinarySearch()
  *  12) GCD()
  *  13) LCM()
+ *  14) GeneratePassword()
  *
  *  Classes:
  *  1) HashEntry
@@ -61,6 +62,13 @@ namespace SGM {
     typedef char CHAR;
     typedef wchar_t WCHAR;
     typedef size_t UINT_T;
+
+	using std::string;
+	using std::cout;
+	using std::cin;
+	using std::cerr;
+	using std::swap;
+	using std::runtime_error;
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------  FUNCTIONS  --------------------------------------------------------------------
@@ -110,7 +118,7 @@ namespace SGM {
 
     /** Divide inputNum(type string) by digits numbers and convert to integer type */
     template<typename INT_T>
-    void DivideNumsByDig(std::string InputNum, INT_T* (&Array))
+    void DivideNumsByDig(string InputNum, INT_T* (&Array))
     {
         UINT32 len = InputNum.length();
         for(UINT32 i=0; i<len; i++)
@@ -242,7 +250,7 @@ namespace SGM {
     {
         for(UINT32 i=0; i<Size; i++)
         {
-            std::cin >> Array[i];
+            cin >> Array[i];
         }
     }
 
@@ -252,7 +260,7 @@ namespace SGM {
     {
         for(UINT32 i=0; i<Size; i++)
         {
-            std::cout << Array[i] << std::setw(4);
+            cout << Array[i] << std::setw(4);
         }
     }
 
@@ -345,15 +353,69 @@ namespace SGM {
         return (num1*num2)/GCD(num1, num2); //НОК (наименьшее общее кратное)
     }
 
+	/**
+	* @param PassLength - Password Length
+	* @param NumberOfUpperAlpha - Number of Upper Alphabets must be in the password
+	* @param NumberOfLowerAlpha - Number of Lower Alphabets must be in the password
+	* @param NumberOfDigit - Number of Digits must be in the password
+	* @param HaveTwoIdenChar - Have two identical consecutive characters in the password, by default its activated
+	* @return Function will return generated password which satisfying the requirements
+	*/
+	string GeneratePassword(UINT_T PassLength, UINT_T NumberOfUpperAlpha, UINT_T NumberOfLowerAlpha, UINT_T NumberOfDigit, bool HaveTwoIdenChar = false)
+	{
+		srand((size_t)time(false));
+		const string Chars[] = { "ABCDEFGHIJKLMNOPQARTUVWXYZ", "abcdefghijklmnopqrstuvwxyz", "0123456789" };
+		const UINT_T UpperAlphLen = Chars[0].length();
+		const UINT_T LowerAlphLen = Chars[1].length();
+		const UINT_T NumbersLen = Chars[2].length();
+		string Password;
+
+		if ((NumberOfUpperAlpha + NumberOfLowerAlpha + NumberOfDigit) > PassLength)
+		{
+			throw runtime_error("Argument ERROR: Number of upper alphabets and Number of lower alphabets and Number of digits more than Password length \n");
+		}
+
+		for (UINT_T i = 1; i <= NumberOfUpperAlpha; i++)
+		{
+			Password.push_back(Chars[0][0 + rand() % UpperAlphLen]);
+		}
+		for (UINT_T i = 1; i <= NumberOfLowerAlpha; i++)
+		{
+			Password.push_back(Chars[1][0 + rand() % LowerAlphLen]);
+		}
+		for (UINT_T i = 1; i <= NumberOfDigit; i++)
+		{
+			Password.push_back(Chars[2][0 + rand() % NumbersLen]);
+		}
+
+		for (UINT_T i = 1; i <= PassLength; i++)
+		{
+			swap(Password[0 + rand() % PassLength], Password[0 + rand() % PassLength]);
+		}
+
+		if (!HaveTwoIdenChar)
+		{
+			for (UINT_T i = 0; i<PassLength; i++)
+			{
+				if (i != PassLength - 1 && Password[i] == Password[i + 1])
+				{
+					string Temp = Chars[0 + rand() % 2];
+					Password[i] = Temp[0 + rand() % Temp.length()];
+				}
+			}
+		}
+
+		return Password;
+	}
+
 //-------------------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------  CLASSES  ----------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
 	struct HashEntry
 	{
-		typedef std::string String;
-		String Value;
+		string Value;
 
-		HashEntry(String Value)
+		HashEntry(string Value)
 		{
 			this->Value = Value;
 		}
@@ -364,10 +426,9 @@ namespace SGM {
     {
     private:
 		const INT16 TABLE_SIZE = 127; // Использовано просто число
-		typedef std::string String;
 		HashEntry **Table; //Таблица хешов
 
-		INT64 HashFunction(String Value)
+		INT64 HashFunction(string Value)
 		{
 			INT64 Sum = 0; //ASCII sum
 			for (auto i : Value)
@@ -403,7 +464,7 @@ namespace SGM {
 			delete Table;
         }
 
-		void insert(String Value)
+		void insert(string Value)
 		{
 			INT64 HashNumber = HashFunction(Value);
 			if (Table[HashNumber] == nullptr)
@@ -412,7 +473,7 @@ namespace SGM {
 			}
 		}
 
-		void remove(String Value)
+		void remove(string Value)
 		{
 			INT64 HashNumber = HashFunction(Value);
 			if (Table[HashNumber] != nullptr)
@@ -421,7 +482,7 @@ namespace SGM {
 			}
 		}
 
-		HashEntry* find(String Value)
+		HashEntry* find(string Value)
 		{
 			INT64 HashNumber = HashFunction(Value);
 			if (Table[HashNumber] == nullptr)
@@ -433,7 +494,7 @@ namespace SGM {
 			}
 		}
 
-		INT64 getHash(String Value)
+		INT64 getHash(string Value)
 		{
 			INT64 HashNumber = HashFunction(Value);
 			return HashNumber;
@@ -463,7 +524,7 @@ namespace SGM {
             Type X = cordX;
             Type Y = cordY;
             Type Z = cordZ;
-            std::cout <<"X="<< X <<" Y="<< Y <<" Z="<< Z <<"\n";
+            cout <<"X="<< X <<" Y="<< Y <<" Z="<< Z <<"\n";
         }
     };
 
@@ -499,10 +560,6 @@ namespace SGM {
 
         void Display(T** (&Array), UINT32 Size)
         {
-            //**                    **//
-                using namespace std;
-            //**                    **//
-
             Size = size_det;
             Array = det;
 
@@ -563,7 +620,7 @@ namespace SGM {
 
         void ShowResult(T** (&array), UINT32 Size)
         {
-            std::cout << "D=" << result;
+            cout << "D=" << result;
         }
     };
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -597,7 +654,7 @@ namespace SGM {
             }
         }
 
-        BigInteger(std::string BigIntegerNumber)
+        BigInteger(string BigIntegerNumber)
         {
             SIZE = BigIntegerNumber.length();
             ArrayDigits = new UINT16[SIZE];
@@ -611,7 +668,7 @@ namespace SGM {
                     if(!isdigit(temp))
                     {
                         isCorrectNumber = false;
-                        throw std::runtime_error("\nConvert Error Big Integer \n");
+                        throw runtime_error("\nConvert Error Big Integer \n");
                     }
                     else{
                         UINT16 num = atoi(&temp); // char to int
@@ -623,9 +680,9 @@ namespace SGM {
                         ArrayDigits[i] = num;
                     }
                 }
-                catch(std::runtime_error& e)
+                catch(runtime_error& e)
                 {
-                    std::cerr << e.what();
+                    cerr << e.what();
                     break;
                 }
             }
@@ -635,22 +692,22 @@ namespace SGM {
         {
             if(ArrayDigits != nullptr)
             {
-                std::cout<<"Destructor called\n";
+                cout<<"Destructor called\n";
                 delete[] ArrayDigits;
             }
         }
 
-        std::string ToString()
+        string ToString()
         {
-            std::string str;
-            std::string temp;
+            string str;
+            string temp;
 
             for(INT64 i=SIZE-1; i>=0 && isCorrectNumber; i--)
             {
                 temp = std::to_string(ArrayDigits[i]);
                 //str += temp;
                 str.push_back(temp[0]);
-                std::cout << str << "\n";
+                cout << str << "\n";
             }
             return str;
         }
@@ -665,7 +722,7 @@ namespace SGM {
             return *this;
         }
 
-        BigInteger& operator=(std::string BigIntegerNumber)
+        BigInteger& operator=(string BigIntegerNumber)
         {
             SIZE = BigIntegerNumber.length();
             ArrayDigits = new UINT16[SIZE];
@@ -679,7 +736,7 @@ namespace SGM {
                     if(!isdigit(temp))
                     {
                         isCorrectNumber = false;
-                        throw std::runtime_error("\nConvert Error Big Integer \n");
+                        throw runtime_error("\nConvert Error Big Integer \n");
                     }
                     else{
                         UINT16 num = atoi(&temp); // char to int
@@ -691,9 +748,9 @@ namespace SGM {
                         ArrayDigits[i] = num;
                     }
                 }
-                catch(std::runtime_error& e)
+                catch(runtime_error& e)
                 {
-                    std::cerr << e.what();
+                    cerr << e.what();
                     break;
                 }
             }
@@ -733,7 +790,7 @@ namespace SGM {
         {
             for(UINT64 i=0; i<SIZE; i++)
             {
-                std::cout<<ArrayDigits[i]<<"\n";
+                cout<<ArrayDigits[i]<<"\n";
             }
         }
         #endif // DEBUG
@@ -796,7 +853,7 @@ namespace SGM {
             try
             {
                 if(Size==0 || Count==0)
-                    throw std::runtime_error("\nERROR: the Size of Stack is NULL \n");
+                    throw runtime_error("\nERROR: the Size of Stack is NULL \n");
 
                 NewArray = new Type[Size]{0};
                 for(UINT64 i=0; i<Size; i++)
@@ -810,9 +867,9 @@ namespace SGM {
                 Count--;
                 Array[Count] = 0;
             }
-            catch(std::runtime_error& e)
+            catch(runtime_error& e)
             {
-                std::cerr << e.what();
+                cerr << e.what();
             }
         }
         Type back() //Получаем доступ к конец Стека
@@ -866,7 +923,7 @@ namespace SGM {
         {
             for(UINT64 i=0; i<Size; i++)
             {
-                std::cout << Array[i] <<" ";
+                cout << Array[i] <<" ";
             }
         }
         #endif // DEBUG
@@ -932,7 +989,7 @@ namespace SGM {
             try
             {
                 if(Size==0 || End<0 || Begin>End)
-                    throw std::runtime_error("\nERROR: the Size of Queue is NULL \n");
+                    throw runtime_error("\nERROR: the Size of Queue is NULL \n");
 
                 NewArray = new Type[Size]{0};
                 for(UINT64 i=0; i<Size; i++)
@@ -953,9 +1010,9 @@ namespace SGM {
                 End = Size - 1;
                 //Begin = 0;
             }
-            catch(std::runtime_error& e)
+            catch(runtime_error& e)
             {
-                std::cerr << e.what();
+                cerr << e.what();
             }
 
         }
@@ -1012,12 +1069,12 @@ namespace SGM {
         #if DEBUG >= 1
         void print()
         {
-            std::cout << "Begin: "<<Begin<<" End: "<<End<<"\n";
+            cout << "Begin: "<<Begin<<" End: "<<End<<"\n";
             for(UINT64 i=0; i<Size; i++)
             {
-                std::cout << Array[i] <<" ";
+                cout << Array[i] <<" ";
             }
-            //std::cout <<"\n"<< Array[End+1] <<" \n";
+            //cout <<"\n"<< Array[End+1] <<" \n";
         }
         #endif // DEBUG
     };
@@ -1106,7 +1163,7 @@ namespace SGM {
             try
             {
                 if(Size==0 || End<0 || Begin>End)
-                    throw std::runtime_error("\nERROR: the Size of Queue is NULL \n");
+                    throw runtime_error("\nERROR: the Size of Queue is NULL \n");
 
                 NewArray = new Type[Size]{0};
                 for(UINT64 i=0; i<Size; i++)
@@ -1127,9 +1184,9 @@ namespace SGM {
                 End = Size - 1;
                 //Begin = 0;
             }
-            catch(std::runtime_error& e)
+            catch(runtime_error& e)
             {
-                std::cerr << e.what();
+                cerr << e.what();
             }
         }
 
@@ -1139,13 +1196,13 @@ namespace SGM {
             {
                 if(Pos>=Size)
                 {
-                    throw std::runtime_error("\nERROR: the index of element is largest than Deque size \n");
+                    throw runtime_error("\nERROR: the index of element is largest than Deque size \n");
                 }
                 this->Array[Pos] = Value;
             }
-            catch(std::runtime_error& e)
+            catch(runtime_error& e)
             {
-                std::cerr << e.what();
+                cerr << e.what();
                 return;
             }
         }
@@ -1155,7 +1212,7 @@ namespace SGM {
             try
             {
                 if(Size==0 || End<0 || Begin>End)
-                    throw std::runtime_error("\nERROR: the Size of Deque is NULL \n");
+                    throw runtime_error("\nERROR: the Size of Deque is NULL \n");
 
                 NewArray = new Type[Size]{0};
                 for(UINT64 i=0; i<Size; i++)
@@ -1169,9 +1226,9 @@ namespace SGM {
                 End = Size - 1;
                 //Array[Count] = 0;
             }
-            catch(std::runtime_error& e)
+            catch(runtime_error& e)
             {
-                std::cerr << e.what();
+                cerr << e.what();
             }
         }
         const_reference front() const //Получаем доступ к начале Дека
@@ -1201,7 +1258,7 @@ namespace SGM {
             try
             {
                 if(NewSize<=0)
-                    throw std::runtime_error("\nERROR: the Size of Deque is least than ZERO \n");
+                    throw runtime_error("\nERROR: the Size of Deque is least than ZERO \n");
 
                 NewArray = new Type[NewSize]{0};
                 if(NewSize>=Size)
@@ -1224,9 +1281,9 @@ namespace SGM {
                 End = Size - 1;
 
             }
-            catch(std::runtime_error& e)
+            catch(runtime_error& e)
             {
-                std::cerr << e.what();
+                cerr << e.what();
             }
         }
 
@@ -1258,13 +1315,13 @@ namespace SGM {
                 //IndexOfElement = ElementIndex;
                 if(ElementIndex>=Size)
                 {
-                    throw std::runtime_error("\nERROR: the index of element is largest than Deque size \n");
+                    throw runtime_error("\nERROR: the index of element is largest than Deque size \n");
                 }
                 return *(this->Array+ElementIndex);
             }
-            catch(std::runtime_error& e)
+            catch(runtime_error& e)
             {
-                std::cerr << e.what();
+                cerr << e.what();
                 return 0;
             }
         }
@@ -1293,7 +1350,7 @@ namespace SGM {
         /*const void operator=(const Type Value) const
         {
             //this->Array[IndexOfElement] = Value;
-            std::cout << "void operator= \n";
+            cout << "void operator= \n";
             return;
         }
         */
@@ -1302,12 +1359,12 @@ namespace SGM {
         #if DEBUG >= 1
         void print()
         {
-            std::cout << "Begin: "<<Begin<<" End: "<<End<<"\n";
+            cout << "Begin: "<<Begin<<" End: "<<End<<"\n";
             for(UINT64 i=0; i<Size; i++)
             {
-                std::cout << Array[i] <<" ";
+                cout << Array[i] <<" ";
             }
-            //std::cout <<"\n"<< Array[End+1] <<" \n";
+            //cout <<"\n"<< Array[End+1] <<" \n";
         }
         #endif // DEBUG
     };
@@ -1416,8 +1473,8 @@ namespace SGM {
                 BeforeNode->Next = NewNode;
                 NewNode->Next = AfterNode;
 
-                //std::cout << BeforeNode <<"\n";
-                //std::cout << AfterNode <<"\n";
+                //cout << BeforeNode <<"\n";
+                //cout << AfterNode <<"\n";
                 //if(BeforeNode==AfterNode) puts("YES");
             }
             else if(Pos==1 && this->size()>=1)
@@ -1568,7 +1625,7 @@ namespace SGM {
             Node<Type>* Temp = Head; //Определяем указатель, который изначально он равен адресу начала списка
             while(Temp!=nullptr) //До тех пор пока не встретит пустое значение
             {
-                std::cout << Temp->Data <<" -> ";
+                cout << Temp->Data <<" -> ";
                 Temp = Temp->Next; //Указываем, что далее нам нужен следующий элемент
             }
         }
@@ -1768,19 +1825,19 @@ namespace SGM {
 
             for(UINT32 i=Count; i<Space; i++)
             {
-                std::cout <<" ";
+                cout <<" ";
             }
 
             if(t==1) //Right node
             {
-                std::cout <<"/"<< RootTree->Data <<"\n";
+                cout <<"/"<< RootTree->Data <<"\n";
             }
             else if(t==2) //Left node
             {
-                std::cout <<"\\"<< RootTree->Data <<"\n";
+                cout <<"\\"<< RootTree->Data <<"\n";
             }
             else{ //Root node
-                std::cout << RootTree->Data <<"\n";
+                cout << RootTree->Data <<"\n";
             }
             print(RootTree->Left, Space, 2);
         }
@@ -1852,28 +1909,28 @@ namespace SGM {
                 delete[] Array;
         }
 
-        void ScanArray()
+        void Scan()
         {
             for(UINT_T i=0; i<col; i++)
             {
                 for(UINT_T j=0; j<row; j++)
                 {
-                    std::cout << "a["<<i+1<<"]["<<j+1<<"] = ";
-                    std::cin >> Array[i][j];
+                    cout << "a["<<i+1<<"]["<<j+1<<"] = ";
+                    cin >> Array[i][j];
                 }
             }
         }
 
-        void PrintArray()
+        void Print()
         {
             for(UINT_T i=0; i<col; i++)
             {
-                std::cout <<"( ";
+                cout <<"( ";
                 for(UINT_T j=0; j<row; j++)
                 {
-                    std::cout << Array[i][j] <<" ";
+                    cout << Array[i][j] <<" ";
                 }
-                std::cout <<" )\n";
+                cout <<" )\n";
             }
         }
     };
