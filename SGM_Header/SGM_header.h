@@ -1,6 +1,6 @@
 /**
  *  Useful functions
- *  In this header used some standart functions of C/C++ also used C++11 features
+ *  In this header used some standart functions of C++17
  *  This header created by SuxrobGM
  *
  *  Functions:
@@ -42,26 +42,28 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <math.h>
+#include <cmath>
 #include <stdlib.h>
+//#include <utility>
 
 namespace SGM {
 
-    typedef unsigned long long int UINT64;
-    typedef unsigned long int UINT32;
-    typedef unsigned int UINT16;
-    typedef unsigned short int USHORT;
-    typedef long long int INT64;
-    typedef long int INT32;
-    typedef int INT16;
-    typedef short int SHORT;
-    typedef float DWORD;
-    typedef double REAL;
-    typedef long double LREAL;
-    typedef unsigned char BYTE;
-    typedef char CHAR;
-    typedef wchar_t WCHAR;
-    typedef size_t UINT_T;
+	//using syntax is new standart of C++11
+    using UINT64 = unsigned long long int;
+	using UINT32 = unsigned long int;
+	using UINT16 = unsigned int;
+	using USHORT = unsigned short int;
+	using INT64 = long long int;
+	using INT32 = long int;
+	using INT16 = int;
+	using SHORT = short int;
+	using DWORD = float;
+	using REAL = double;
+	using LREAL = long double;
+	using BYTE = unsigned char;
+	using CHAR = char;
+	using WCHAR = wchar_t;
+	using UINT_T = size_t;
 
 	using std::string;
 	using std::cout;
@@ -625,7 +627,7 @@ namespace SGM {
     };
 //-------------------------------------------------------------------------------------------------------------------------------
     /** class Big Integer */
-    class BigInteger
+    class BigInteger final
     {
     private:
         UINT16* ArrayDigits;
