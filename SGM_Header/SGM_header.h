@@ -32,7 +32,7 @@
  *  10) ForwardList
  *  11) BinaryTree
  *  12) Matrix
- *  13) Graph ?
+ *  13) Graph 
  *
  */
 #ifndef SGM_HEADER_H_INCLUDED
@@ -49,7 +49,8 @@
 #include <stdlib.h>
 //#include <utility>
 
-namespace SGM {
+namespace SGM 
+{
 
 	//'using' syntax is new standart of C++11
     using uint64 = unsigned long long int;
