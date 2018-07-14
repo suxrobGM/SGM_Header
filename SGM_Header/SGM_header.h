@@ -48,22 +48,14 @@
 
 namespace SGM {
 
-	//using syntax is new standart of C++11
-    using UINT64 = unsigned long long int;
-	using UINT32 = unsigned long int;
-	using UINT16 = unsigned int;
-	using USHORT = unsigned short int;
-	using INT64 = long long int;
-	using INT32 = long int;
-	using INT16 = int;
-	using SHORT = short int;
-	using DWORD = float;
-	using REAL = double;
-	using LREAL = long double;
-	using BYTE = unsigned char;
-	using CHAR = char;
-	using WCHAR = wchar_t;
-	using UINT_T = size_t;
+	//'using' syntax is new standart of C++11
+    using uint64 = unsigned long long int;
+	using uint32 = unsigned long int;
+	using ushort = unsigned short int;
+	using int64 = long long int;
+	using int32 = long int;
+	using uchar = unsigned char;
+	using ldouble = long double;
 
 	using std::string;
 	using std::cout;
@@ -76,10 +68,10 @@ namespace SGM {
 //----------------------------------------------  FUNCTIONS  --------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
     /** Factorial  n! */
-    UINT64 Factorial(UINT_T InputNum)
+    uint64 Factorial(size_t InputNum)
     {
-        UINT64 result=1;
-        for(UINT32 i=1; i<=InputNum; i++)
+        uint64 result=1;
+        for(uint32 i=1; i<=InputNum; i++)
         {
             result*=i;
         }
@@ -87,10 +79,10 @@ namespace SGM {
     }
 
     /** Count digits in the integer number */
-    template<typename INT_T>
-    UINT64 CountDigits(INT_T inputNum)
+    template<typename int_t>
+    uint64 CountDigits(int_t inputNum)
     {
-        UINT32 Count=0;
+        uint32 Count=0;
         while(inputNum !=0)
         {
             inputNum /= 10;
@@ -101,12 +93,12 @@ namespace SGM {
 
 
     /** Divide inputNum by digits , Its will work only for integer number!!! */
-    template<typename INT_T>
-    void DivideNumsByDig(UINT64 InputNum, INT_T* (&Array))
+    template<typename int_t>
+    void DivideNumsByDig(uint64 InputNum, int_t* (&Array))
     {
-        UINT32 len = CountDigits(InputNum);
+        uint32 len = CountDigits(InputNum);
 
-        for(UINT32 i=0; i<len; i++)
+        for(uint32 i=0; i<len; i++)
         {
             if(i==0)
             {
@@ -119,11 +111,11 @@ namespace SGM {
     }
 
     /** Divide inputNum(type string) by digits numbers and convert to integer type */
-    template<typename INT_T>
-    void DivideNumsByDig(string InputNum, INT_T* (&Array))
+    template<typename int_t>
+    void DivideNumsByDig(string InputNum, int_t* (&Array))
     {
-        UINT32 len = InputNum.length();
-        for(UINT32 i=0; i<len; i++)
+        uint32 len = InputNum.length();
+        for(uint32 i=0; i<len; i++)
         {
             CHAR temp = InputNum[i];
             Array[i] = atoi(&temp); // char to int
@@ -132,11 +124,11 @@ namespace SGM {
 
     /** Get maximum of number in the array */
     template <typename Type>
-    Type GetMax(const Type* Array, UINT32 Size)
+    Type GetMax(const Type* Array, uint32 Size)
     {
         Type Max = Array[0];
 
-        for(UINT32 i=0; i<Size; i++)
+        for(uint32 i=0; i<Size; i++)
         {
             if(Max<Array[i])
                 Max = Array[i];
@@ -149,9 +141,9 @@ namespace SGM {
     FowardIterator GetMax(FowardIterator* Start, FowardIterator* End)
     {
         FowardIterator* Max = Start;
-        UINT32 Size = End - Start;
+        uint32 Size = End - Start;
 
-        for(UINT32 i=0; i<=Size; i++)
+        for(uint32 i=0; i<=Size; i++)
         {
             if(*(Start+i) > *Max)
             *Max = *(Start+i);
@@ -168,11 +160,11 @@ namespace SGM {
 
     /** Get minimum of number in the array */
     template <typename Type>
-    Type GetMin(const Type* Array, UINT32 Size)
+    Type GetMin(const Type* Array, uint32 Size)
     {
         Type Min = Array[0];
 
-        for(UINT32 i=0; i<Size; i++)
+        for(uint32 i=0; i<Size; i++)
         {
             if(Min>Array[i])
                 Min = Array[i];
@@ -185,9 +177,9 @@ namespace SGM {
     FowardIterator GetMin(FowardIterator* Start, FowardIterator* End)
     {
         FowardIterator* Min = Start;
-        UINT32 Size = End - Start;
+        uint32 Size = End - Start;
 
-        for(UINT32 i=0; i<=Size; i++)
+        for(uint32 i=0; i<=Size; i++)
         {
             if(*(Start+i) < *Min)
                 *Min = *(Start+i);
@@ -205,14 +197,14 @@ namespace SGM {
 
     /** Sort 1D array by increasing order(Algorithm Bubble Sort, complex O(N^2)) */
     template <typename ArrayType>
-    void SortInc_B(ArrayType* (&Array), UINT32 Size)
+    void SortInc_B(ArrayType* (&Array), uint32 Size)
     {
         ArrayType Temp; // temporary variable
 
         //Algorithm "Buble sort"
-        for(UINT32 i=0; i<Size; i++)
+        for(uint32 i=0; i<Size; i++)
         {
-            for(UINT32 j=0; j<(Size-i-1); j++)
+            for(uint32 j=0; j<(Size-i-1); j++)
             {
                 if(Array[j]>Array[j+1])
                 {
@@ -226,14 +218,14 @@ namespace SGM {
 
     /** Sort 1D array by decreasing order(Algorithm Bubble Sort, complex O(N^2)) */
     template <typename ArrayType>
-    void SortDec_B(ArrayType *(&Array), UINT32 Size) // Sort array by decreasing order
+    void SortDec_B(ArrayType *(&Array), uint32 Size) // Sort array by decreasing order
     {
         ArrayType Temp; // temporary variable
 
         //Algorithm "Buble sort"
-        for(UINT32 i=0; i<Size; i++)
+        for(uint32 i=0; i<Size; i++)
         {
-            for(UINT32 j=0; j<(Size-i-1); j++)
+            for(uint32 j=0; j<(Size-i-1); j++)
             {
                 if(Array[j]<Array[j+1])
                 {
@@ -248,9 +240,9 @@ namespace SGM {
 
     /** Input whatever array in the Console */
     template <typename Type>
-    inline void ScanArray(Type* Array, UINT32 Size)
+    inline void ScanArray(Type* Array, uint32 Size)
     {
-        for(UINT32 i=0; i<Size; i++)
+        for(uint32 i=0; i<Size; i++)
         {
             cin >> Array[i];
         }
@@ -258,9 +250,9 @@ namespace SGM {
 
     /** Print whatever array to the display */
     template <typename Type>
-    inline void PrintArray(const Type* Array, UINT32 Size)
+    inline void PrintArray(const Type* Array, uint32 Size)
     {
-        for(UINT32 i=0; i<Size; i++)
+        for(uint32 i=0; i<Size; i++)
         {
             cout << Array[i] << std::setw(4);
         }
@@ -268,48 +260,43 @@ namespace SGM {
 
     /** Recursive Binary Search complex O(log(n)) */
     template <typename Type>
-    Type Recursive_BinarySearch(const Type* Array, UINT32 Left, UINT32 Right, const Type FindElement)
+    int BinarySearch_Recursive(const Type* Array, uint32 Left, uint32 Right, const Type FindElement)
     {
-        //INT32 Left = 1;
-        //INT32 Right = Size;
-        UINT32 Middle = (Left + Right)/2;
-        bool Founded = false;
+        //int32 Left = 1;
+        //int32 Right = Size;
+        int Middle = (Left + Right)/2;
 
-        if(Left>Right)
-        {
-            return -1;
-        }
-        else if(Left<=Right)
-        {
+        if(Right >= Left)
+        {           
             Middle = (Left + Right)/2;
 
-            if(Array[Middle]==FindElement)
+            if(Array[Middle] == FindElement)
             {
-                return Middle;
-                Founded = true;
+                return Middle;                
             }
-            else if(Array[Middle]>FindElement)
+            if(Array[Middle] > FindElement)
             {
-                return Recursive_BinarySearch(Array, Left, Right-1, FindElement);
+                return Recursive_BinarySearch(Array, Left, Middle - 1, FindElement);
             }
-            else if(Array[Middle]<FindElement)
+            else //if(Array[Middle] < FindElement)
             {
-                return Recursive_BinarySearch(Array, Left, Right+1, FindElement);
+                return Recursive_BinarySearch(Array, Middle + 1, Right, FindElement);
             }
         }
+		return -1;
     }
 
     /** Simple Binary Search complex O(log(n)), if element was found in the sorted array, then function returned position of element in sorted array, otherwise function will return -1 */
     template <typename Type>
-    Type BinarySearch(const Type* Array, UINT32 Size, Type FindElement)
+    int BinarySearch(const Type* Array, uint32 Size, Type FindElement)
     {
-        INT32 low = 1;
-        INT32 high = Size;
+        int32 low = 1;
+        int32 high = Size;
         bool Founded = false;
 
         while(low<=high)
         {
-            INT32 mid = (low+high)/2;
+            int32 mid = (low+high)/2;
 
             if(Array[mid]>FindElement)
             {
@@ -332,8 +319,8 @@ namespace SGM {
     }
 
     /** Function calculate the greatest common divisor(GCD) two natural numbers */
-    template<typename INT_T>
-    INT_T GCD(INT_T num1, INT_T num2)
+    template<typename int_t>
+    int_t GCD(int_t num1, int_t num2)
     {
         while(num1*num2>0)
         {
@@ -349,10 +336,10 @@ namespace SGM {
     }
 
     /** Function calculate the least common multiples(LCM) two natural numbers */
-    template<typename INT_T>
-    INT_T LCM(INT_T num1, INT_T num2)
+    template<typename int_t>
+    int_t LCM(int_t num1, int_t num2)
     {
-        return (num1*num2)/GCD(num1, num2); //НОК (наименьшее общее кратное)
+        return (num1*num2) / GCD(num1, num2); //НОК (наименьшее общее кратное)
     }
 
 	/**
@@ -363,13 +350,13 @@ namespace SGM {
 	* @param HaveTwoIdenChar - Have two identical consecutive characters in the password, by default its activated
 	* @return Function will return generated password which satisfying the requirements
 	*/
-	string GeneratePassword(UINT_T PassLength, UINT_T NumberOfUpperAlpha, UINT_T NumberOfLowerAlpha, UINT_T NumberOfDigit, bool HaveTwoIdenChar = false)
+	string GeneratePassword(size_t PassLength, size_t NumberOfUpperAlpha, size_t NumberOfLowerAlpha, size_t NumberOfDigit, bool HaveTwoIdenChar = false)
 	{
 		srand((size_t)time(false));
 		const string Chars[] = { "ABCDEFGHIJKLMNOPQARTUVWXYZ", "abcdefghijklmnopqrstuvwxyz", "0123456789" };
-		const UINT_T UpperAlphLen = Chars[0].length();
-		const UINT_T LowerAlphLen = Chars[1].length();
-		const UINT_T NumbersLen = Chars[2].length();
+		const size_t UpperAlphLen = Chars[0].length();
+		const size_t LowerAlphLen = Chars[1].length();
+		const size_t NumbersLen = Chars[2].length();
 		string Password;
 
 		if ((NumberOfUpperAlpha + NumberOfLowerAlpha + NumberOfDigit) > PassLength)
@@ -377,27 +364,27 @@ namespace SGM {
 			throw runtime_error("Argument ERROR: Number of upper alphabets and Number of lower alphabets and Number of digits more than Password length \n");
 		}
 
-		for (UINT_T i = 1; i <= NumberOfUpperAlpha; i++)
+		for (size_t i = 1; i <= NumberOfUpperAlpha; i++)
 		{
 			Password.push_back(Chars[0][0 + rand() % UpperAlphLen]);
 		}
-		for (UINT_T i = 1; i <= NumberOfLowerAlpha; i++)
+		for (size_t i = 1; i <= NumberOfLowerAlpha; i++)
 		{
 			Password.push_back(Chars[1][0 + rand() % LowerAlphLen]);
 		}
-		for (UINT_T i = 1; i <= NumberOfDigit; i++)
+		for (size_t i = 1; i <= NumberOfDigit; i++)
 		{
 			Password.push_back(Chars[2][0 + rand() % NumbersLen]);
 		}
 
-		for (UINT_T i = 1; i <= PassLength; i++)
+		for (size_t i = 1; i <= PassLength; i++)
 		{
 			swap(Password[0 + rand() % PassLength], Password[0 + rand() % PassLength]);
 		}
 
 		if (!HaveTwoIdenChar)
 		{
-			for (UINT_T i = 0; i<PassLength; i++)
+			for (size_t i = 0; i<PassLength; i++)
 			{
 				if (i != PassLength - 1 && Password[i] == Password[i + 1])
 				{
@@ -427,12 +414,12 @@ namespace SGM {
 	class HashTable
     {
     private:
-		const INT16 TABLE_SIZE = 127; // Использовано просто число
+		const int TABLE_SIZE = 127; // Использовано просто число
 		HashEntry **Table; //Таблица хешов
 
-		INT64 HashFunction(string Value)
+		int64 HashFunction(string Value)
 		{
-			INT64 Sum = 0; //ASCII sum
+			int64 Sum = 0; //ASCII sum
 			for (auto i : Value)
 			{
 				Sum += i;
@@ -443,7 +430,7 @@ namespace SGM {
 		HashTable()
 		{
 			Table = new HashEntry*[TABLE_SIZE];
-			for (INT16 i = 0; i < TABLE_SIZE; i++)
+			for (int i = 0; i < TABLE_SIZE; i++)
 			{
 				Table[i] = nullptr;
 			}
@@ -452,14 +439,14 @@ namespace SGM {
 		{
 			//this->TABLE_SIZE = OtherHashTable.TABLE_SIZE;
 			this->Table = OtherHashTable.Table;
-			for (INT16 i = 0; i < this->TABLE_SIZE; i++)
+			for (int i = 0; i < this->TABLE_SIZE; i++)
 			{
 				this->Table[i] = OtherHashTable.Table[i];
 			}
 		}
         ~HashTable()
         {
-			for (INT16 i = 0; i < TABLE_SIZE; i++)
+			for (int i = 0; i < TABLE_SIZE; i++)
 			{
 				delete Table[i];
 			}
@@ -468,7 +455,7 @@ namespace SGM {
 
 		void insert(string Value)
 		{
-			INT64 HashNumber = HashFunction(Value);
+			int64 HashNumber = HashFunction(Value);
 			if (Table[HashNumber] == nullptr)
 			{
 				Table[HashNumber] = new HashEntry(Value);
@@ -477,7 +464,7 @@ namespace SGM {
 
 		void remove(string Value)
 		{
-			INT64 HashNumber = HashFunction(Value);
+			int64 HashNumber = HashFunction(Value);
 			if (Table[HashNumber] != nullptr)
 			{
 				Table[HashNumber] = nullptr;
@@ -486,7 +473,7 @@ namespace SGM {
 
 		HashEntry* find(string Value)
 		{
-			INT64 HashNumber = HashFunction(Value);
+			int64 HashNumber = HashFunction(Value);
 			if (Table[HashNumber] == nullptr)
 			{
 				return nullptr;
@@ -496,9 +483,9 @@ namespace SGM {
 			}
 		}
 
-		INT64 getHash(string Value)
+		int64 getHash(string Value)
 		{
-			INT64 HashNumber = HashFunction(Value);
+			int64 HashNumber = HashFunction(Value);
 			return HashNumber;
 		}
     };
@@ -538,11 +525,11 @@ namespace SGM {
     private:
         T det; // element of determinant
         T result;
-        UINT32 size_det;
+        uint32 size_det;
 
-        void GetMinor(T** (&Array), T** p, UINT16 i, UINT16 j, UINT16 m)
+        void GetMinor(T** (&Array), T** p, size_t i, size_t j, size_t m)
         {
-            UINT16 ki=0, kj=0, di=0, dj=0;
+            size_t ki=0, kj=0, di=0, dj=0;
 
             for (; ki<(m-1); ki++) // control index of row
             {
@@ -560,15 +547,15 @@ namespace SGM {
 		Determinant() {} // constructor
 		~Determinant() {} // destructor
 
-        void Display(T** (&Array), UINT32 Size)
+        void Display(T** (&Array), uint32 Size)
         {
             Size = size_det;
             Array = det;
 
             cout << "\n\n" << "|";
-            for(UINT32 i=0; i<size_det; i++)
+            for(uint32 i=0; i<size_det; i++)
             {
-                UINT32 j=0;
+                uint32 j=0;
                 for(; j<size_det; j++)
                 {
                     cout << setw(4) << det[i][j] << setw(4);
@@ -582,15 +569,15 @@ namespace SGM {
             cout << "\n\n";
         }
 
-        T Compute(T** (&Array), UINT32 Size) // Recruisive computing determinant
+        T Compute(T** (&Array), uint32 Size) // Recruisive computing determinant
         {
             Size = size_det;
             Array = det;
 
             T **p = nullptr;
 
-            INT16 k = 1; //(-1)^(i+j)
-            UINT32 i=0,j=0;
+            int k = 1; //(-1)^(i+j)
+            uint32 i=0,j=0;
 
             p = new T*[Size];
 
@@ -620,7 +607,7 @@ namespace SGM {
             }
         }
 
-        void ShowResult(T** (&array), UINT32 Size)
+        void ShowResult(T** (&array), uint32 Size)
         {
             cout << "D=" << result;
         }
@@ -630,18 +617,18 @@ namespace SGM {
     class BigInteger final
     {
     private:
-        UINT16* ArrayDigits;
-        UINT16 SIZE;
+        size_t* ArrayDigits;
+        size_t SIZE;
         bool isCorrectNumber = true;
 
     public:
-        const static UINT16 ONE = 1;
-        const static UINT16 ZERO = 0;
+        const static size_t ONE = 1;
+        const static size_t ZERO = 0;
 
         BigInteger()
         {
             SIZE = 1;
-            ArrayDigits = new UINT16[SIZE];
+            ArrayDigits = new size_t[SIZE];
             ArrayDigits[0] = this->ZERO;
 
         }
@@ -649,8 +636,8 @@ namespace SGM {
         BigInteger(const BigInteger *A)
         {
             SIZE = A->SIZE;
-            ArrayDigits = new UINT16[SIZE];
-            for(UINT64 i=0; i<SIZE; i++)
+            ArrayDigits = new size_t[SIZE];
+            for(uint64 i=0; i<SIZE; i++)
             {
                 ArrayDigits[i] = A->ArrayDigits[i];
             }
@@ -659,11 +646,11 @@ namespace SGM {
         BigInteger(string BigIntegerNumber)
         {
             SIZE = BigIntegerNumber.length();
-            ArrayDigits = new UINT16[SIZE];
+            ArrayDigits = new size_t[SIZE];
 
-            for(INT16 i=SIZE-1; i>=0; i--)
+            for(int i=SIZE-1; i>=0; i--)
             {
-                CHAR temp = BigIntegerNumber[(SIZE-1)-i];
+                char temp = BigIntegerNumber[(SIZE-1)-i];
 
                 try
                 {
@@ -673,7 +660,7 @@ namespace SGM {
                         throw runtime_error("\nConvert Error Big Integer \n");
                     }
                     else{
-                        UINT16 num = atoi(&temp); // char to int
+                        size_t num = atoi(&temp); // char to int
 
                         if(num>=10)
                         {
@@ -704,7 +691,7 @@ namespace SGM {
             string str;
             string temp;
 
-            for(INT64 i=SIZE-1; i>=0 && isCorrectNumber; i--)
+            for(int64 i=SIZE-1; i>=0 && isCorrectNumber; i--)
             {
                 temp = std::to_string(ArrayDigits[i]);
                 //str += temp;
@@ -714,7 +701,7 @@ namespace SGM {
             return str;
         }
 
-        UINT64 getSize()
+        uint64 getSize()
         {
             return SIZE;
         }
@@ -727,11 +714,11 @@ namespace SGM {
         BigInteger& operator=(string BigIntegerNumber)
         {
             SIZE = BigIntegerNumber.length();
-            ArrayDigits = new UINT16[SIZE];
+            ArrayDigits = new size_t[SIZE];
 
-            for(INT16 i=SIZE-1; i>=0; i--)
+            for(int i=SIZE-1; i>=0; i--)
             {
-                CHAR temp = BigIntegerNumber[(SIZE-1)-i];
+                char temp = BigIntegerNumber[(SIZE-1)-i];
 
                 try
                 {
@@ -741,7 +728,7 @@ namespace SGM {
                         throw runtime_error("\nConvert Error Big Integer \n");
                     }
                     else{
-                        UINT16 num = atoi(&temp); // char to int
+                        size_t num = atoi(&temp); // char to int
 
                         if(num>=10)
                         {
@@ -762,13 +749,13 @@ namespace SGM {
         BigInteger& operator+(const BigInteger &A)
         {
             BigInteger* res = new BigInteger(); //res - result
-            UINT16 carry = 0;
+            size_t carry = 0;
 
             if(SIZE == A.SIZE)
             {
-                for(UINT64 i=0; i<SIZE; i++)
+                for(uint64 i=0; i<SIZE; i++)
                 {
-                    UINT16 sum = ArrayDigits[i] + A.ArrayDigits[i] + carry;
+                    size_t sum = ArrayDigits[i] + A.ArrayDigits[i] + carry;
                     if(sum>=10)
                     {
                         res->ArrayDigits[i] = sum - 10;
@@ -790,7 +777,7 @@ namespace SGM {
         #if DEBUG >= 1
         void test_ArrayDigits()
         {
-            for(UINT64 i=0; i<SIZE; i++)
+            for(uint64 i=0; i<SIZE; i++)
             {
                 cout<<ArrayDigits[i]<<"\n";
             }
@@ -805,13 +792,13 @@ namespace SGM {
     class Stack
     {
     private:
-        UINT64 Size; //Размер стека
-        UINT64 Count; //Количество добавленных элементов в Стеке
+        uint64 Size; //Размер стека
+        uint64 Count; //Количество добавленных элементов в Стеке
         Type* Array; //Главный массив
         Type* NewArray = nullptr; //Вспомогательный массив
 
     public:
-        Stack(UINT64 MaxSize = 0) //Конструктор по умолчанию
+        Stack(uint64 MaxSize = 0) //Конструктор по умолчанию
         {
             Size = MaxSize;
             Count = 0;
@@ -826,7 +813,7 @@ namespace SGM {
             Count = OtherStack.Count;
             Array = new Type[Size];
 
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 Array[i] = OtherStack.Array[i];
             }
@@ -841,7 +828,7 @@ namespace SGM {
         void push_back(const Type Value) //Добавляем элемента в конец Стека
         {
             NewArray = new Type[++Size]{0};
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 NewArray[i] = Array[i];
             }
@@ -858,7 +845,7 @@ namespace SGM {
                     throw runtime_error("\nERROR: the Size of Stack is NULL \n");
 
                 NewArray = new Type[Size]{0};
-                for(UINT64 i=0; i<Size; i++)
+                for(uint64 i=0; i<Size; i++)
                 {
                     NewArray[i] = Array[i];
                 }
@@ -881,7 +868,7 @@ namespace SGM {
             else
                 return 0;
         }
-        UINT64 size() const //Размер добавленных элементов в Стеке
+        uint64 size() const //Размер добавленных элементов в Стеке
         {
             return Count;
         }
@@ -899,7 +886,7 @@ namespace SGM {
         }
         void clear() //Удаляем все элементы из Стека
         {
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 Array[i] = 0;
             }
@@ -913,7 +900,7 @@ namespace SGM {
             this->Count = OtherStack.Count;
             Array = new Type[Size];
 
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 this->Array[i] = OtherStack.Array[i];
             }
@@ -923,7 +910,7 @@ namespace SGM {
         #if DEBUG >= 1
         void print()
         {
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 cout << Array[i] <<" ";
             }
@@ -937,14 +924,14 @@ namespace SGM {
     class Queue
     {
     private:
-        UINT64 Size;    //Размер Очереди
-        UINT64 Begin;   //Начало Очереди
-        UINT64 End;     //Конец Очереди
+        uint64 Size;    //Размер Очереди
+        uint64 Begin;   //Начало Очереди
+        uint64 End;     //Конец Очереди
         Type* Array;    //Главный массив
         Type* NewArray = nullptr; //Вспомогательный массив
 
     public:
-        Queue(UINT64 MaxSize = 0) //Конструктор по умолчанию
+        Queue(uint64 MaxSize = 0) //Конструктор по умолчанию
         {
             Size = MaxSize;
             Begin = 0;
@@ -961,7 +948,7 @@ namespace SGM {
             End = OtherQueue.End;
             Array = new Type[Size];
 
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 Array[i] = OtherQueue.Array[i];
             }
@@ -976,7 +963,7 @@ namespace SGM {
         void push_back(const Type Value) //Добавляем элемента в конец Очереди
         {
             NewArray = new Type[++Size]{0};
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 NewArray[i] = Array[i];
             }
@@ -994,7 +981,7 @@ namespace SGM {
                     throw runtime_error("\nERROR: the Size of Queue is NULL \n");
 
                 NewArray = new Type[Size]{0};
-                for(UINT64 i=0; i<Size; i++)
+                for(uint64 i=0; i<Size; i++)
                 {
                     if(i==Size-1)
                     {
@@ -1032,7 +1019,7 @@ namespace SGM {
             else
                 return 0;
         }
-        UINT64 size() const //Размер добавленных элементов в Очереде
+        uint64 size() const //Размер добавленных элементов в Очереде
         {
             return Size;
         }
@@ -1045,7 +1032,7 @@ namespace SGM {
         }
         void clear() //Удаляем все элементы из Очереда
         {
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 Array[i] = 0;
             }
@@ -1061,7 +1048,7 @@ namespace SGM {
             this->End = OtherQueue.End;
             Array = new Type[Size];
 
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 this->Array[i] = OtherQueue.Array[i];
             }
@@ -1072,7 +1059,7 @@ namespace SGM {
         void print()
         {
             cout << "Begin: "<<Begin<<" End: "<<End<<"\n";
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 cout << Array[i] <<" ";
             }
@@ -1087,9 +1074,9 @@ namespace SGM {
     class Deque
     {
     private:
-        UINT64 Size;                //Размер Дека
-        UINT64 Begin;               //Начало Дека (Iterator begin)
-        UINT64 End;                 //Конец Дека (Iterator end)
+        uint64 Size;                //Размер Дека
+        uint64 Begin;               //Начало Дека (Iterator begin)
+        uint64 End;                 //Конец Дека (Iterator end)
         //UINT64 IndexOfElement;      //Индекс элемента
         Type* Array;                //Главный массив
         Type* NewArray = nullptr;   //Вспомогательный массив
@@ -1100,7 +1087,7 @@ namespace SGM {
         typedef const Type& const_reference;
 
     public:
-        Deque(UINT64 MaxSize = 0) //Конструктор по умолчанию
+        Deque(uint64 MaxSize = 0) //Конструктор по умолчанию
         {
             Size = MaxSize;
             Begin = 0;
@@ -1118,7 +1105,7 @@ namespace SGM {
             End = OtherDeque.End;
             Array = new Type[Size];
 
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 Array[i] = OtherDeque.Array[i];
             }
@@ -1133,7 +1120,7 @@ namespace SGM {
         void push_back(const Type Value) //Добавляем элемента в конец Дека
         {
             NewArray = new Type[++Size]{0};
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 NewArray[i] = Array[i];
             }
@@ -1146,7 +1133,7 @@ namespace SGM {
         void push_front(const Type Value) //Добавляем элемента в начало Дека
         {
             NewArray = new Type[++Size]{0};
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 if(i!=Size-1)
                 {
@@ -1168,7 +1155,7 @@ namespace SGM {
                     throw runtime_error("\nERROR: the Size of Queue is NULL \n");
 
                 NewArray = new Type[Size]{0};
-                for(UINT64 i=0; i<Size; i++)
+                for(uint64 i=0; i<Size; i++)
                 {
                     if(i==Size-1)
                     {
@@ -1192,7 +1179,7 @@ namespace SGM {
             }
         }
 
-        void assign(const Type Value, const UINT_T Pos)
+        void assign(const Type Value, const size_t Pos)
         {
             try
             {
@@ -1217,7 +1204,7 @@ namespace SGM {
                     throw runtime_error("\nERROR: the Size of Deque is NULL \n");
 
                 NewArray = new Type[Size]{0};
-                for(UINT64 i=0; i<Size; i++)
+                for(uint64 i=0; i<Size; i++)
                 {
                     NewArray[i] = Array[i];
                 }
@@ -1243,7 +1230,7 @@ namespace SGM {
             //if(End>=Begin)
                 return *(this->Array+this->End);
         }
-        UINT64 size() const //Размер добавленных элементов в Деке
+        uint64 size() const //Размер добавленных элементов в Деке
         {
             return Size;
         }
@@ -1255,7 +1242,7 @@ namespace SGM {
                 return true;
         }
 
-        void resize(UINT_T NewSize)
+        void resize(size_t NewSize)
         {
             try
             {
@@ -1265,13 +1252,13 @@ namespace SGM {
                 NewArray = new Type[NewSize]{0};
                 if(NewSize>=Size)
                 {
-                    for(UINT64 i=0; i<Size; i++)
+                    for(uint64 i=0; i<Size; i++)
                     {
                         NewArray[i] = Array[i];
                     }
                 }
                 else{
-                    for(UINT64 i=0; i<NewSize; i++)
+                    for(uint64 i=0; i<NewSize; i++)
                     {
                         NewArray[i] = Array[i];
                     }
@@ -1291,7 +1278,7 @@ namespace SGM {
 
         void clear() //Удаляем все элементы из Дека
         {
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 Array[i] = 0;
             }
@@ -1310,7 +1297,7 @@ namespace SGM {
             return this->Array + this->End;
         }
 
-        const_reference at(UINT_T ElementIndex) const
+        const_reference at(size_t ElementIndex) const
         {
             try
             {
@@ -1328,7 +1315,7 @@ namespace SGM {
             }
         }
 
-        const_reference operator[](UINT_T ElementIndex) const
+        const_reference operator[](size_t ElementIndex) const
         {
             //IndexOfElement = ElementIndex;
             return *(this->Array+ElementIndex);
@@ -1341,7 +1328,7 @@ namespace SGM {
             this->End = OtherDeque.End;
 
             Array = new Type[this->Size];
-            for(UINT64 i=0; i<this->Size; i++)
+            for(uint64 i=0; i<this->Size; i++)
             {
                 Array[i] = OtherDeque.Array[i];
             }
@@ -1362,7 +1349,7 @@ namespace SGM {
         void print()
         {
             cout << "Begin: "<<Begin<<" End: "<<End<<"\n";
-            for(UINT64 i=0; i<Size; i++)
+            for(uint64 i=0; i<Size; i++)
             {
                 cout << Array[i] <<" ";
             }
@@ -1443,12 +1430,12 @@ namespace SGM {
             Temp->Next = NewNode;
         }
 
-        void assign(const Type Value, const UINT_T Pos)
+        void assign(const Type Value, const size_t Pos)
         {
             if(Head!=nullptr && Pos <= this->size()) //Делаем проверку на то что список не пуст и Pos не превышает число его элементов
             {
                 Node<Type>* Temp = Head;
-                for(UINT64 i=1; i<=Pos; i++)
+                for(uint64 i=1; i<=Pos; i++)
                 {
                     Temp = Temp->Next; //Меняем адрес N раз
                 }
@@ -1456,7 +1443,7 @@ namespace SGM {
             }
         }
 
-        void insert(const Type Value, const UINT_T Pos)
+        void insert(const Type Value, const size_t Pos)
         {
             if(Head!=nullptr && Pos!=1 && Pos < this->size() ) //Делаем проверку на то что список не пуст и Pos не превышает число его элементов
             {
@@ -1464,11 +1451,11 @@ namespace SGM {
                 Node<Type>* AfterNode = Head;
                 Node<Type>* NewNode = new Node<Type>(Value);
 
-                for(UINT64 i=1; i<Pos-1; i++)
+                for(uint64 i=1; i<Pos-1; i++)
                 {
                     BeforeNode = BeforeNode->Next;
                 }
-                for(UINT64 i=1; i<Pos; i++)
+                for(uint64 i=1; i<Pos; i++)
                 {
                     AfterNode = AfterNode->Next;
                 }
@@ -1519,11 +1506,11 @@ namespace SGM {
             Head = Head->Next;
         }
 
-        void pop_front_nodes(const UINT_T N) //Удаление N звен из начало списка
+        void pop_front_nodes(const size_t N) //Удаление N звен из начало списка
         {
             if(Head!=nullptr  &&  N <= this->size()) //Делаем проверку на то что список не пуст и N не превышает число его элементов
             {
-                for(UINT64 i=1; i<=N; i++)
+                for(uint64 i=1; i<=N; i++)
                 {
                     this->pop_front(); //Меняем адрес N раз
                 }
@@ -1544,11 +1531,11 @@ namespace SGM {
             this->erase(LastElement->Data); //Метод удаление последнего значение из списка
         }
 
-        void pop_back_nodes(const UINT_T N) //Удаление N звен из конца списка
+        void pop_back_nodes(const size_t N) //Удаление N звен из конца списка
         {
             if(Head!=nullptr  &&  N <= this->size()) //Делаем проверку на то что список не пуст и N не превышает число его элементов
             {
-                for(UINT64 i=1; i<=N; i++)
+                for(uint64 i=1; i<=N; i++)
                 {
                     this->pop_back();
                 }
@@ -1609,9 +1596,9 @@ namespace SGM {
                 return true;
         }
 
-        UINT64 size()
+        uint64 size()
         {
-            UINT64 Count = 0;
+            uint64 Count = 0;
             Node<Type>* Temp = Head;
             while(Temp!=nullptr)
             {
@@ -1816,16 +1803,16 @@ namespace SGM {
             RootTree = nullptr;
         }
 
-        void print(Node<Type>* RootTree, UINT32 Space=0, UINT16 t=0)
+        void print(Node<Type>* RootTree, uint32 Space=0, size_t t=0)
         {
-            UINT32 Count = 3;
+            uint32 Count = 3;
             if(RootTree == nullptr)
                 return;
             Space += Count;
 
             print(RootTree->Right, Space, 1);
 
-            for(UINT32 i=Count; i<Space; i++)
+            for(uint32 i=Count; i<Space; i++)
             {
                 cout <<" ";
             }
@@ -1849,8 +1836,8 @@ namespace SGM {
     class Matrix
     {
     private:
-        UINT_T col;     // i - column
-        UINT_T row;     // j - row
+        size_t col;     // i - column
+        size_t row;     // j - row
         Type** Array;
     public:
         Matrix()
@@ -1861,19 +1848,19 @@ namespace SGM {
             Array[col] = new Type[row];
             Array[col-1][row-1] = 0;
         }
-        Matrix(UINT_T col, UINT_T row)
+        Matrix(size_t col, size_t row)
         {
             this->col = col;
             this->row = row;
 
             Array = new Type*[col];
-            for(UINT_T i=0; i<col; i++)
+            for(size_t i=0; i<col; i++)
             {
                 Array[i] = new Type[row];
             }
-            for(UINT_T i=0; i<col; i++)
+            for(size_t i=0; i<col; i++)
             {
-                for(UINT_T j=0; j<row; j++)
+                for(size_t j=0; j<row; j++)
                 {
                     Array[i][j] = 0;
                 }
@@ -1887,14 +1874,14 @@ namespace SGM {
             //this->Array = OtherMatrix.Array;
 
             Array = new Type*[this->col];
-            for(UINT_T i=0; i<col; i++)
+            for(size_t i=0; i<col; i++)
             {
                 Array[i] = new Type[this->row];
             }
 
-            for(UINT_T i=0; i<col; i++)
+            for(size_t i=0; i<col; i++)
             {
-                for(UINT_T j=0; j<row; j++)
+                for(size_t j=0; j<row; j++)
                 {
                     Array[i][j] = OtherMatrix.Array[i][j];
                 }
@@ -1902,7 +1889,7 @@ namespace SGM {
         }
         ~Matrix()
         {
-            for(UINT_T i=0; i<col; i++)
+            for(size_t i=0; i<col; i++)
             {
                 if(Array[i] != nullptr)
                     delete[] Array[i];
@@ -1913,9 +1900,9 @@ namespace SGM {
 
         void Scan()
         {
-            for(UINT_T i=0; i<col; i++)
+            for(size_t i=0; i<col; i++)
             {
-                for(UINT_T j=0; j<row; j++)
+                for(size_t j=0; j<row; j++)
                 {
                     cout << "a["<<i+1<<"]["<<j+1<<"] = ";
                     cin >> Array[i][j];
@@ -1925,10 +1912,10 @@ namespace SGM {
 
         void Print()
         {
-            for(UINT_T i=0; i<col; i++)
+            for(size_t i=0; i<col; i++)
             {
                 cout <<"( ";
-                for(UINT_T j=0; j<row; j++)
+                for(size_t j=0; j<row; j++)
                 {
                     cout << Array[i][j] <<" ";
                 }
