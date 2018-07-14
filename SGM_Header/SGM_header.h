@@ -308,14 +308,10 @@ namespace SGM {
             }
             else if(Array[mid]==FindElement)
             {
-                return mid;
-                Founded = true;
+                return mid;                
             }
         }
-        if(!Founded)
-        {
-            return -1;
-        }
+        return -1;
     }
 
     /** Function calculate the greatest common divisor(GCD) two natural numbers */
