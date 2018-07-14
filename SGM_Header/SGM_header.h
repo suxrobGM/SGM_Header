@@ -37,7 +37,7 @@
  */
 #ifndef SGM_HEADER_H_INCLUDED
 #define SGM_HEADER_H_INCLUDED
-#define DEBUG 1
+#define DEBUG 1 
 
 #include <iostream>
 #include <iomanip>
@@ -52,6 +52,15 @@
 namespace SGM 
 {
 
+	// C# or Java style class modifiers
+	#define Public public:
+	#define Private private:
+	#define Protected protected:
+
+	// C# style
+	#define var auto
+	#define foreach for
+	
 	//'using' syntax is new standart of C++11
     using uint64 = unsigned long long int;
 	using uint32 = unsigned long int;
@@ -423,7 +432,7 @@ namespace SGM
 		int64 HashFunction(string Value)
 		{
 			int64 Sum = 0; //ASCII sum
-			for (auto i : Value)
+			for (var i : Value)
 			{
 				Sum += i;
 			}
@@ -1929,29 +1938,27 @@ namespace SGM
 //-------------------------------------------------------------------------------------------------------------------------------
 	class Graph
 	{
-	private:
-		int vertexes; //Number of vertexes
-		list<int> *adjacencyList; //adjacency List
+		Private int vertexes; //Number of vertexes
+		Private list<int> *adjacencyList; //adjacency List
 		
-	public:
-		Graph(int vertexes)
+		Public Graph(int vertexes)
 		{
 			this->vertexes = vertexes;
 			adjacencyList = new list<int>[vertexes];
 		}
 
-		Graph(const Graph& OtherGraph)
+		Public Graph(const Graph& OtherGraph)
 		{
 			this->adjacencyList = OtherGraph.adjacencyList;
 			this->vertexes = OtherGraph.vertexes;
 		}
 
-		void AddEdge(int vertex, int weight)
+		Public void AddEdge(int vertex, int weight)
 		{
 			adjacencyList[vertex].push_back(weight);
 		}
 
-		void DepthFirstSearch(int sourceVertex)
+		Public void DepthFirstSearch(int sourceVertex)
 		{
 			//Initially mark all verices as not visited
 			vector<bool> visited(this->vertexes, false);
@@ -1973,14 +1980,14 @@ namespace SGM
 				*/
 				if (!visited[sourceVertex])
 				{
-					cout << sourceVertex << " ";
+					cout << sourceVertex << " -> ";
 					visited[sourceVertex] = true;
 				}
 
 				/* Get all adjacent vertices of the popped vertex sourceVertex.
 				   If a adjacent has not been visited, then push it to the stack
 				*/
-				for (auto i : adjacencyList[sourceVertex])
+				foreach(var i : adjacencyList[sourceVertex])
 				{
 					if (!visited[i])
 					{
