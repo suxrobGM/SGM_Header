@@ -43,6 +43,9 @@
 #include <iomanip>
 #include <string>
 #include <cmath>
+#include <list>
+#include <stack>
+#include <vector>
 #include <stdlib.h>
 //#include <utility>
 
@@ -63,6 +66,9 @@ namespace SGM {
 	using std::cerr;
 	using std::swap;
 	using std::runtime_error;
+	using std::list;
+	using std::vector;
+	using std::stack;
 
 //-------------------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------  FUNCTIONS  --------------------------------------------------------------------
@@ -117,7 +123,7 @@ namespace SGM {
         uint32 len = InputNum.length();
         for(uint32 i=0; i<len; i++)
         {
-            CHAR temp = InputNum[i];
+            char temp = InputNum[i];
             Array[i] = atoi(&temp); // char to int
         }
     }
@@ -1919,6 +1925,71 @@ namespace SGM {
             }
         }
     };
+//-------------------------------------------------------------------------------------------------------------------------------
+	class Graph
+	{
+	private:
+		int vertexes; //Number of vertexes
+		list<int> *adjacencyList; //adjacency List
+		
+	public:
+		Graph(int vertexes)
+		{
+			this->vertexes = vertexes;
+			adjacencyList = new list<int>[vertexes];
+		}
+
+		Graph(const Graph& OtherGraph)
+		{
+			this->adjacencyList = OtherGraph.adjacencyList;
+			this->vertexes = OtherGraph.vertexes;
+		}
+
+		void AddEdge(int vertex, int weight)
+		{
+			adjacencyList[vertex].push_back(weight);
+		}
+
+		void DepthFirstSearch(int sourceVertex)
+		{
+			//Initially mark all verices as not visited
+			vector<bool> visited(this->vertexes, false);
+
+			//Create a stack for DFS
+			stack<int> Stack;
+
+			//Push the current source node
+			Stack.push(sourceVertex);
+
+			while (!Stack.empty())
+			{
+				//Pop a vertex from stack and print it
+				sourceVertex = Stack.top();
+				Stack.pop();
+
+				/* Stack may contain same vertex twice. So we need to print the popped item only
+				   if it is not visited
+				*/
+				if (!visited[sourceVertex])
+				{
+					cout << sourceVertex << " ";
+					visited[sourceVertex] = true;
+				}
+
+				/* Get all adjacent vertices of the popped vertex sourceVertex.
+				   If a adjacent has not been visited, then push it to the stack
+				*/
+				for (auto i : adjacencyList[sourceVertex])
+				{
+					if (!visited[i])
+					{
+						Stack.push(i);
+					}
+				}
+
+			}
+		}
+	};
 //-------------------------------------------------------------------------------------------------------------------------------
 }//END of Namespace SGM
 #endif // SGM_HEADER_H_INCLUDED
