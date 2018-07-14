@@ -37,7 +37,16 @@
  */
 #ifndef SGM_HEADER_H_INCLUDED
 #define SGM_HEADER_H_INCLUDED
-#define DEBUG 1 
+#define DEBUG 1
+
+// C# or Java style class modifiers
+#define Public public:
+#define Private private:
+#define Protected protected:
+
+// C# style
+#define var auto
+#define foreach for
 
 #include <iostream>
 #include <iomanip>
@@ -50,17 +59,7 @@
 //#include <utility>
 
 namespace SGM 
-{
-
-	// C# or Java style class modifiers
-	#define Public public:
-	#define Private private:
-	#define Protected protected:
-
-	// C# style
-	#define var auto
-	#define foreach for
-	
+{	
 	//'using' syntax is new standart of C++11
     using uint64 = unsigned long long int;
 	using uint32 = unsigned long int;
