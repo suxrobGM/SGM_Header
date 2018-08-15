@@ -1,4 +1,4 @@
-/**
+п»ї/**
  *  Useful functions
  *  In this header used some standart functions of C++17
  *  This header created by SuxrobGM
@@ -343,14 +343,14 @@ namespace SGM
                 num2 %= num1;
             }
         }
-        return num1+num2; //НОД
+        return num1+num2; //ГЌГЋГ„
     }
 
     /** Function calculate the least common multiples(LCM) two natural numbers */
     template<typename int_t>
     int_t LCM(int_t num1, int_t num2)
     {
-        return (num1*num2) / GCD(num1, num2); //НОК (наименьшее общее кратное)
+        return (num1*num2) / GCD(num1, num2); //ГЌГЋГЉ (Г­Г ГЁГ¬ГҐГ­ГјГёГҐГҐ Г®ГЎГ№ГҐГҐ ГЄГ°Г ГІГ­Г®ГҐ)
     }
 
 	/**
@@ -425,8 +425,8 @@ namespace SGM
 	class HashTable
     {
     private:
-		const int TABLE_SIZE = 127; // Использовано просто число
-		HashEntry **Table; //Таблица хешов
+		const int TABLE_SIZE = 127; // Г€Г±ГЇГ®Г«ГјГ§Г®ГўГ Г­Г® ГЇГ°Г®Г±ГІГ® Г·ГЁГ±Г«Г®
+		HashEntry **Table; //Г’Г ГЎГ«ГЁГ¶Г  ГµГҐГёГ®Гў
 
 		int64 HashFunction(string Value)
 		{
@@ -611,7 +611,6 @@ namespace SGM
                 for (; i<size_det; i++)
                 {
                     GetMinor(det, p, i, 0, size_det);
-                    //cout << det[i][j] << endl;
                     result = result + (k*(det[i][0])*ComputeDeterminant(p,(size_det-1)));
                     k = -k;
                 }
@@ -705,7 +704,6 @@ namespace SGM
             for(int64 i=SIZE-1; i>=0 && isCorrectNumber; i--)
             {
                 temp = std::to_string(ArrayDigits[i]);
-                //str += temp;
                 str.push_back(temp[0]);
                 cout << str << "\n";
             }
@@ -803,13 +801,13 @@ namespace SGM
     class Stack
     {
     private:
-        uint64 Size; //Размер стека
-        uint64 Count; //Количество добавленных элементов в Стеке
-        Type* Array; //Главный массив
-        Type* NewArray = nullptr; //Вспомогательный массив
+        uint64 Size; //Р Р°Р·РјРµСЂ СЃС‚РµРєР°
+        uint64 Count; //РљРѕР»РёС‡РµСЃС‚РІРѕ РґРѕР±Р°РІР»РµРЅРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ РІ СЃС‚РµРєРµ
+        Type* Array; //Р“Р»Р°РІРЅС‹Р№ РјР°СЃСЃРёРІ
+        Type* NewArray = nullptr; //Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ РјР°СЃСЃРёРІ
 
     public:
-        Stack(uint64 MaxSize = 0) //Конструктор по умолчанию
+        Stack(uint64 MaxSize = 0) 
         {
             Size = MaxSize;
             Count = 0;
@@ -818,7 +816,8 @@ namespace SGM
             else
                 Array = new Type[MaxSize]{0};
         }
-        Stack(const Stack<Type> &OtherStack) //Консруктор копирование
+
+        Stack(const Stack<Type> &OtherStack)
         {
             Size = OtherStack.Size;
             Count = OtherStack.Count;
@@ -829,14 +828,16 @@ namespace SGM
                 Array[i] = OtherStack.Array[i];
             }
         }
-        ~Stack() //Деструктор
+
+        ~Stack()
         {
             if(Array != nullptr)
                 delete[] Array;
             if(NewArray != nullptr)
                 delete[] NewArray;
         }
-        void push_back(const Type Value) //Добавляем элемента в конец Стека
+
+        void push_back(const Type Value)
         {
             NewArray = new Type[++Size]{0};
             for(uint64 i=0; i<Size; i++)
@@ -848,7 +849,8 @@ namespace SGM
 
             Array[Count++] = Value;
         }
-        void pop_back() //Удаляем элемента из конец Стека
+
+        void pop_back()
         {
             try
             {
@@ -872,30 +874,28 @@ namespace SGM
                 cerr << e.what();
             }
         }
-        Type back() //Получаем доступ к конец Стека
+
+        Type back() 
         {
             if(Count!=0)
                 return Array[Count-1];
             else
                 return 0;
         }
-        uint64 size() const //Размер добавленных элементов в Стеке
+
+        uint64 size() const 
         {
             return Count;
         }
-        /*UINT64 capacity() const //Максмальный размер Стека
-        {
-            return Size;
-        }
-        */
-        bool empty() //Проверяем Стека
+       
+        bool empty() 
         {
             if(Size>=1 && Count>0)
                 return false;
             else
                 return true;
         }
-        void clear() //Удаляем все элементы из Стека
+        void clear() 
         {
             for(uint64 i=0; i<Size; i++)
             {
@@ -935,14 +935,14 @@ namespace SGM
     class Queue
     {
     private:
-        uint64 Size;    //Размер Очереди
-        uint64 Begin;   //Начало Очереди
-        uint64 End;     //Конец Очереди
-        Type* Array;    //Главный массив
-        Type* NewArray = nullptr; //Вспомогательный массив
+        uint64 Size;    //Р Р°Р·РјРµСЂ РћС‡РµСЂРµРґРё
+        uint64 Begin;   //РќР°С‡Р°Р»Рѕ РћС‡РµСЂРµРґРё
+        uint64 End;     //РљРѕРЅРµС† РћС‡РµСЂРµРґРё
+        Type* Array;    //Р“Р»Р°РІРЅС‹Р№ РјР°СЃСЃРёРІ
+        Type* NewArray = nullptr; //Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ РјР°СЃСЃРёРІ
 
     public:
-        Queue(uint64 MaxSize = 0) //Конструктор по умолчанию
+        Queue(uint64 MaxSize = 0) 
         {
             Size = MaxSize;
             Begin = 0;
@@ -952,7 +952,8 @@ namespace SGM
             else
                 Array = new Type[MaxSize]{0};
         }
-        Queue(const Queue<Type> &OtherQueue) //Консруктор копирование
+
+        Queue(const Queue<Type> &OtherQueue)
         {
             Size = OtherQueue.Size;
             Begin = OtherQueue.Begin;
@@ -964,14 +965,16 @@ namespace SGM
                 Array[i] = OtherQueue.Array[i];
             }
         }
-        ~Queue() //Деструктор
+
+        ~Queue() 
         {
             if(Array != nullptr)
                 delete[] Array;
             if(NewArray != nullptr)
                 delete[] NewArray;
         }
-        void push_back(const Type Value) //Добавляем элемента в конец Очереди
+
+        void push_back(const Type Value) 
         {
             NewArray = new Type[++Size]{0};
             for(uint64 i=0; i<Size; i++)
@@ -984,7 +987,8 @@ namespace SGM
             End = Size - 1;
             Array[End] = Value;
         }
-        void pop_front() //Извлекаем элемента из Очереди
+
+        void pop_front() 
         {
             try
             {
@@ -996,10 +1000,10 @@ namespace SGM
                 {
                     if(i==Size-1)
                     {
-                        NewArray[i] = 0; //Обнулим конечный элемент в массиве
+                        NewArray[i] = 0; //ГЋГЎГ­ГіГ«ГЁГ¬ ГЄГ®Г­ГҐГ·Г­Г»Г© ГЅГ«ГҐГ¬ГҐГ­ГІ Гў Г¬Г Г±Г±ГЁГўГҐ
                     }
                     else{
-                        NewArray[i] = Array[i+1]; //Сдвиг элементов в влево(<--)
+                        NewArray[i] = Array[i+1]; //Г‘Г¤ГўГЁГЈ ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў Гў ГўГ«ГҐГўГ®(<--)
                     }
                 }
 
@@ -1016,32 +1020,37 @@ namespace SGM
             }
 
         }
-        Type front() //Получаем доступ к начале Очереди
+
+        Type front() 
         {
             if(End>=Begin)
                 return Array[Begin];
             else
                 return 0;
         }
-        Type back() //Получаем доступ к конец Очереди
+
+        Type back()
         {
             if(End>=Begin)
                 return Array[End];
             else
                 return 0;
         }
-        uint64 size() const //Размер добавленных элементов в Очереде
+
+        uint64 size() const 
         {
             return Size;
         }
-        bool empty() //Проверяем Очередь
+
+        bool empty() 
         {
             if(Size>=1 && End>=Begin)
                 return false;
             else
                 return true;
         }
-        void clear() //Удаляем все элементы из Очереда
+
+        void clear() 
         {
             for(uint64 i=0; i<Size; i++)
             {
@@ -1085,12 +1094,11 @@ namespace SGM
     class Deque
     {
     private:
-        uint64 Size;                //Размер Дека
-        uint64 Begin;               //Начало Дека (Iterator begin)
-        uint64 End;                 //Конец Дека (Iterator end)
-        //UINT64 IndexOfElement;      //Индекс элемента
-        Type* Array;                //Главный массив
-        Type* NewArray = nullptr;   //Вспомогательный массив
+        uint64 Size;                //Р Р°Р·РјРµСЂ Р”РµРєР°
+        uint64 Begin;               //РќР°С‡Р°Р»Рѕ Р”РµРєР° (Iterator begin)
+        uint64 End;                 //РљРѕРЅРµС† Р”РµРєР° (Iterator end)
+        Type* Array;                //Р“Р»Р°РІРЅС‹Р№ РјР°СЃСЃРёРІ
+        Type* NewArray = nullptr;   //Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ РјР°СЃСЃРёРІ
 
         typedef Type* iterator;
         typedef Type& reference;
@@ -1098,7 +1106,7 @@ namespace SGM
         typedef const Type& const_reference;
 
     public:
-        Deque(uint64 MaxSize = 0) //Конструктор по умолчанию
+        Deque(uint64 MaxSize = 0) 
         {
             Size = MaxSize;
             Begin = 0;
@@ -1109,7 +1117,8 @@ namespace SGM
             else
                 Array = new Type[MaxSize]{0};
         }
-        Deque(const Deque<Type> &OtherDeque) //Консруктор копирование
+
+        Deque(const Deque<Type> &OtherDeque) 
         {
             Size = OtherDeque.Size;
             Begin = OtherDeque.Begin;
@@ -1121,14 +1130,16 @@ namespace SGM
                 Array[i] = OtherDeque.Array[i];
             }
         }
-        ~Deque() //Деструктор
+
+        ~Deque() 
         {
             if(Array != nullptr)
                 delete[] Array;
             if(NewArray != nullptr)
                 delete[] NewArray;
         }
-        void push_back(const Type Value) //Добавляем элемента в конец Дека
+
+        void push_back(const Type Value) 
         {
             NewArray = new Type[++Size]{0};
             for(uint64 i=0; i<Size; i++)
@@ -1141,24 +1152,25 @@ namespace SGM
             End = Size - 1;
             Array[End] = Value;
         }
-        void push_front(const Type Value) //Добавляем элемента в начало Дека
+
+        void push_front(const Type Value) 
         {
             NewArray = new Type[++Size]{0};
             for(uint64 i=0; i<Size; i++)
             {
                 if(i!=Size-1)
                 {
-                    NewArray[i+1] = Array[i]; //Сдвиг элементов массива в вправо(-->)
+                    NewArray[i+1] = Array[i]; 
                 }
             }
             delete[] Array;
             Array = NewArray;
 
             End = Size - 1;
-            Array[Begin] = Value;   //Begin = 0
-                                    //Добавляем элемента в начале массива
+            Array[Begin] = Value;                                     
         }
-        void pop_front() //Извлекаем элемента из начало Дека
+
+        void pop_front() 
         {
             try
             {
@@ -1170,10 +1182,10 @@ namespace SGM
                 {
                     if(i==Size-1)
                     {
-                        NewArray[i] = 0; //Обнулим конечный элемент в массиве
+                        NewArray[i] = 0; //ГЋГЎГ­ГіГ«ГЁГ¬ ГЄГ®Г­ГҐГ·Г­Г»Г© ГЅГ«ГҐГ¬ГҐГ­ГІ Гў Г¬Г Г±Г±ГЁГўГҐ
                     }
                     else{
-                        NewArray[i] = Array[i+1]; //Сдвиг элементов массива в влево(<--)
+                        NewArray[i] = Array[i+1]; //Г‘Г¤ГўГЁГЈ ГЅГ«ГҐГ¬ГҐГ­ГІГ®Гў Г¬Г Г±Г±ГЁГўГ  Гў ГўГ«ГҐГўГ®(<--)
                     }
                 }
 
@@ -1207,7 +1219,7 @@ namespace SGM
             }
         }
 
-        void pop_back() //Удаляем элемента из конец Дека
+        void pop_back() 
         {
             try
             {
@@ -1223,29 +1235,32 @@ namespace SGM
                 Array = NewArray;
 
                 Size--;
-                End = Size - 1;
-                //Array[Count] = 0;
+                End = Size - 1;              
             }
             catch(runtime_error& e)
             {
                 cerr << e.what();
             }
         }
-        const_reference front() const //Получаем доступ к начале Дека
+
+        const_reference front() const
         {
             //if(End>=Begin)
                 return *(this->Array+this->Begin);
         }
-        const_reference back() const //Получаем доступ к конец Дека
+
+        const_reference back() const 
         {
             //if(End>=Begin)
                 return *(this->Array+this->End);
         }
-        uint64 size() const //Размер добавленных элементов в Деке
+
+        uint64 size() const 
         {
             return Size;
         }
-        bool empty() //Проверяем Дека
+
+        bool empty() 
         {
             if(Size>=1 && End>=Begin)
                 return false;
@@ -1287,7 +1302,7 @@ namespace SGM
             }
         }
 
-        void clear() //Удаляем все элементы из Дека
+        void clear() 
         {
             for(uint64 i=0; i<Size; i++)
             {
@@ -1295,15 +1310,14 @@ namespace SGM
             }
             Begin = 0;
             End = 0;
-            Size = 0;
-            //IndexOfElement = 0;
+            Size = 0;            
         }
 
-        const_iterator begin() const // Итератор на начало Дека
+        const_iterator begin() const
         {
             return this->Array + this->Begin;
         }
-        const_iterator end() const // Итератор на конца Дека
+        const_iterator end() const 
         {
             return this->Array + this->End;
         }
@@ -1311,8 +1325,7 @@ namespace SGM
         const_reference at(size_t ElementIndex) const
         {
             try
-            {
-                //IndexOfElement = ElementIndex;
+            {             
                 if(ElementIndex>=Size)
                 {
                     throw runtime_error("\nERROR: the index of element is largest than Deque size \n");
@@ -1327,8 +1340,7 @@ namespace SGM
         }
 
         const_reference operator[](size_t ElementIndex) const
-        {
-            //IndexOfElement = ElementIndex;
+        {           
             return *(this->Array+ElementIndex);
         }
 
@@ -1345,15 +1357,7 @@ namespace SGM
             }
 
             return *this;
-        }
-
-        /*const void operator=(const Type Value) const
-        {
-            //this->Array[IndexOfElement] = Value;
-            cout << "void operator= \n";
-            return;
-        }
-        */
+        }     
 
 
         #if DEBUG >= 1
@@ -1374,21 +1378,18 @@ namespace SGM
     struct Node
     {
         Type Data;          //data
-        Node<Type>* Next;   //pointer to next data
-        Node<Type>* Prev;   //pointer to previous data
-
         Node<Type>* Right;  //pointer to right node (used for binary tree)
         Node<Type>* Left;   //pointer to left node (used for binary tree)
 
-        Node(): Next(nullptr), Prev(nullptr), Right(nullptr), Left(nullptr) {} //Default constructor
-        Node(const Type& setData): Data(setData), Next(nullptr), Prev(nullptr), Right(nullptr), Left(nullptr) {}
+        Node(): Right(nullptr), Left(nullptr) {} //Default constructor
+        Node(const Type& setData): Data(setData),Right(nullptr), Left(nullptr) {}
         Node(const Node<Type>& OtherNode) //Copying constructor
         {
             this->Data = OtherNode.Data;
             this->Left = OtherNode.Left;
             this->Right = OtherNode.Right;
-            this->Next = OtherNode.Next;
-            this->Prev = OtherNode.Prev;
+            this->Right = OtherNode.Right;
+            this->Left = OtherNode.Left;
         }
     };
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -1399,7 +1400,7 @@ namespace SGM
     class ForwardList
     {
     private:
-        Node<Type>* Head;     //Указатель на начало списка
+        Node<Type>* Head;     //РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РЅР°С‡Р°Р»Рѕ СЃРїРёСЃРєР°
         typedef Node<Type>* iterator;
         typedef const Node<Type>* const_iterator;
         typedef Type& reference;
@@ -1411,44 +1412,46 @@ namespace SGM
         {
             this->Head = OtherForwardList.Head;
         }
-        ~ForwardList() //Деструктор
+        ~ForwardList()
         {
-            while(Head!=nullptr)  //Пока по адресу не пусто
+            while(Head!=nullptr)  //РџРѕРєР° Р°РґСЂРµСЃ РЅРµ РїСѓСЃС‚Рѕ
             {
-                Node<Type>* Temp = Head->Next;  //Временная переменная для хранения адреса следующего элемента
-                delete Head;                    //Освобождаем адрес обозначающий начало
-                Head = Temp;                    //Меняем адрес на следующий
+                Node<Type>* Temp = Head->Right;  //Р’СЂРµРјРµРЅРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ Р°РґСЂРµСЃР° СЃР»РµРґСѓСЋС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р°
+                delete Head;                     //РћСЃРІРѕР±РѕР¶РґР°РµРј Р°РґСЂРµСЃ РѕР±РѕР·РЅР°С‡Р°СЋС‰РёР№ РЅР°С‡Р°Р»Рѕ
+                Head = Temp;                     //РњРµРЅСЏРµРј Р°РґСЂРµСЃ РЅР° СЃР»РµРґСѓСЋС‰РёР№
             }
         }
 
-        void push_front(const Type Value) //Функция добавления элементов в список
+		//РњРµС‚РѕРґ РґРѕР±Р°РІР»РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ РІ СЃРїРёСЃРѕРє
+        void push_front(const Type Value) 
         {
-            Node<Type>* Temp = new Node<Type>(); //При каждом вызове выделяется память
-            Temp->Data = Value; //Записываем Valu в элемент структуры  Node
-            Temp->Next = Head;  //Указываем, что след. элемент это объект по адресу Head
-            Head = Temp;        //Указываем, что последний активный элемент это только что введенный
+            Node<Type>* Temp = new Node<Type>(); //РџСЂРё РєР°Р¶РґРѕРј РІС‹Р·РѕРІРµ РІС‹РґРµР»СЏРµС‚СЃСЏ РїР°РјСЏС‚СЊ
+            Temp->Data = Value;  //Р—Р°РїРёСЃС‹РІР°РµРј Value РІ СЌР»РµРјРµРЅС‚ СЃС‚СЂСѓРєС‚СѓСЂС‹  Node
+            Temp->Right = Head;  //РЈРєР°Р·С‹РІР°РµРј, С‡С‚Рѕ СЃР»РµРґ. СЌР»РµРјРµРЅС‚ СЌС‚Рѕ РѕР±СЉРµРєС‚ РїРѕ Р°РґСЂРµСЃСѓ Head
+            Head = Temp;         //РЈРєР°Р·С‹РІР°РµРј, С‡С‚Рѕ РїРѕСЃР»РµРґРЅРёР№ Р°РєС‚РёРІРЅС‹Р№ СЌР»РµРјРµРЅС‚ СЌС‚Рѕ С‚РѕР»СЊРєРѕ С‡С‚Рѕ РІРІРµРґРµРЅРЅС‹Р№
         }
 
-        void push_back(const Type Value) //Функция добавления элементов в список
+		//РњРµС‚РѕРґ РґРѕР±Р°РІР»РµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ РІ СЃРїРёСЃРѕРє
+        void push_back(const Type Value) 
         {
-            Node<Type>* Temp = new Node<Type>(); //При каждом вызове выделяется память
+            Node<Type>* Temp = new Node<Type>();
             Node<Type>* NewNode = new Node<Type>(Value);
             Temp = Head;
-            while(Temp->Next != nullptr)
+            while(Temp->Right != nullptr)
             {
-                Temp = Temp->Next;
+                Temp = Temp->Right;
             }
-            Temp->Next = NewNode;
+            Temp->Right = NewNode;
         }
 
         void assign(const Type Value, const size_t Pos)
         {
-            if(Head!=nullptr && Pos <= this->size()) //Делаем проверку на то что список не пуст и Pos не превышает число его элементов
+            if(Head!=nullptr && Pos <= this->size()) //Р”РµР»Р°РµРј РїСЂРѕРІРµСЂРєСѓ РЅР° С‚Рѕ С‡С‚Рѕ СЃРїРёСЃРѕРє РЅРµ РїСѓСЃС‚ Рё Pos РЅРµ РїСЂРµРІС‹С€Р°РµС‚ С‡РёСЃР»Рѕ РµРіРѕ СЌР»РµРјРµРЅС‚РѕРІ
             {
                 Node<Type>* Temp = Head;
                 for(uint64 i=1; i<=Pos; i++)
                 {
-                    Temp = Temp->Next; //Меняем адрес N раз
+                    Temp = Temp->Right; 
                 }
                 Temp->Data = Value;
             }
@@ -1456,7 +1459,7 @@ namespace SGM
 
         void insert(const Type Value, const size_t Pos)
         {
-            if(Head!=nullptr && Pos!=1 && Pos < this->size() ) //Делаем проверку на то что список не пуст и Pos не превышает число его элементов
+            if(Head!=nullptr && Pos!=1 && Pos < this->size() ) 
             {
                 Node<Type>* BeforeNode = Head;
                 Node<Type>* AfterNode = Head;
@@ -1464,18 +1467,14 @@ namespace SGM
 
                 for(uint64 i=1; i<Pos-1; i++)
                 {
-                    BeforeNode = BeforeNode->Next;
+                    BeforeNode = BeforeNode->Right;
                 }
                 for(uint64 i=1; i<Pos; i++)
                 {
-                    AfterNode = AfterNode->Next;
+                    AfterNode = AfterNode->Right;
                 }
-                BeforeNode->Next = NewNode;
-                NewNode->Next = AfterNode;
-
-                //cout << BeforeNode <<"\n";
-                //cout << AfterNode <<"\n";
-                //if(BeforeNode==AfterNode) puts("YES");
+                BeforeNode->Right = NewNode;
+                NewNode->Right = AfterNode;             
             }
             else if(Pos==1 && this->size()>=1)
             {
@@ -1487,64 +1486,69 @@ namespace SGM
             }
         }
 
-        void erase(const Type Element) //Удаление Element из списка
+		//РњРµС‚РѕРґ СѓРґР°Р»РµРЅРёСЏ СЌР»РµРјРµРЅС‚Р° РёР· СЃРїРёСЃРєРµ
+        void erase(const Type Element) 
         {
             Node<Type>* ElementNode = Head;
             Node<Type>* Temp = Head;
 
-            //Поиск Element из списка
-            while(ElementNode->Next!=nullptr && ElementNode->Data != Element)
+            
+            while(ElementNode->Right!=nullptr && ElementNode->Data != Element)
             {
-                ElementNode = ElementNode->Next;
+                ElementNode = ElementNode->Right;
             }
 
-            //Удаляем ElementNode из списка
+            
             if(Temp==ElementNode)
             {
-                Temp->Next = ElementNode->Next;
+                Temp->Right = ElementNode->Right;
             }
             else{
-                while(Temp->Next != ElementNode)
+                while(Temp->Right != ElementNode)
                 {
-                    Temp = Temp->Next;
+                    Temp = Temp->Right;
                 }
-                Temp->Next = ElementNode->Next;
+                Temp->Right = ElementNode->Right;
             }
         }
 
-        void pop_front() //Удаление одного звенья из начало списка
+		//РЈРґР°Р»РµРЅРёРµ РѕРґРЅРѕРіРѕ Р·РІРµРЅСЊСЏ РёР· РЅР°С‡Р°Р»Рѕ СЃРїРёСЃРєР°
+        void pop_front() 
         {
-            Head = Head->Next;
+            Head = Head->Right;
         }
 
-        void pop_front_nodes(const size_t N) //Удаление N звен из начало списка
+		//РЈРґР°Р»РµРЅРёРµ N Р·РІРµРЅ РёР· РЅР°С‡Р°Р»Рѕ СЃРїРёСЃРєР°
+        void pop_front_nodes(const size_t N) 
         {
-            if(Head!=nullptr  &&  N <= this->size()) //Делаем проверку на то что список не пуст и N не превышает число его элементов
+            if(Head!=nullptr  &&  N <= this->size()) 
             {
                 for(uint64 i=1; i<=N; i++)
                 {
-                    this->pop_front(); //Меняем адрес N раз
+                    this->pop_front();
                 }
             }
         }
 
-        void pop_back() //Удаление одного звенья из конца списка
+		//РЈРґР°Р»РµРЅРёРµ РѕРґРЅРѕРіРѕ Р·РІРµРЅСЊСЏ РёР· РєРѕРЅС†Р° СЃРїРёСЃРєР°
+        void pop_back() 
         {
             Node<Type>* Temp = Head;
             Node<Type>* LastElement = nullptr;
 
-            while(Temp->Next!=nullptr) //Идем к конец списка
+            while(Temp->Right!=nullptr) 
             {
-                Temp = Temp->Next;
+                Temp = Temp->Right;
             }
             LastElement = Temp;
-            LastElement->Data = Temp->Data; //Сохраним данные из последнего звенья к узеле LastElement
-            this->erase(LastElement->Data); //Метод удаление последнего значение из списка
+            LastElement->Data = Temp->Data; 
+            this->erase(LastElement->Data); 
         }
 
-        void pop_back_nodes(const size_t N) //Удаление N звен из конца списка
+		//РЈРґР°Р»РµРЅРёРµ N Р·РІРµРЅ РёР· РєРѕРЅС†Р° СЃРїРёСЃРєР°
+        void pop_back_nodes(const size_t N) 
         {
-            if(Head!=nullptr  &&  N <= this->size()) //Делаем проверку на то что список не пуст и N не превышает число его элементов
+            if(Head!=nullptr  &&  N <= this->size()) 
             {
                 for(uint64 i=1; i<=N; i++)
                 {
@@ -1561,9 +1565,9 @@ namespace SGM
         const_reference back() const
         {
             Node<Type>* Temp = Head;
-            while(Temp->Next!=nullptr)
+            while(Temp->Right!=nullptr)
             {
-                Temp = Temp->Next;
+                Temp = Temp->Right;
             }
             return Temp->Data;
         }
@@ -1576,9 +1580,9 @@ namespace SGM
         const_iterator end() const
         {
             Node<Type>* Temp = Head;
-            while(Temp->Next!=nullptr)
+            while(Temp->Right!=nullptr)
             {
-                Temp = Temp->Next;
+                Temp = Temp->Right;
             }
             return Temp;
         }
@@ -1591,11 +1595,11 @@ namespace SGM
 
         void clear()
         {
-            while (Head!=nullptr)  //Пока по адресу не пусто
+            while (Head!=nullptr) 
             {
-                Node<Type>* Temp = Head->Next;  //Временная переменная для хранения адреса следующего элемента
-                delete Head;                    //Освобождаем адрес обозначающий начало
-                Head = Temp;                    //Меняем адрес на следующий
+                Node<Type>* Temp = Head->Right;  
+                delete Head;                    
+                Head = Temp;                    
             }
         }
 
@@ -1614,7 +1618,7 @@ namespace SGM
             while(Temp!=nullptr)
             {
                 Count++;
-                Temp = Temp->Next;
+                Temp = Temp->Right;
             }
             return Count;
         }
@@ -1622,11 +1626,11 @@ namespace SGM
         #if DEBUG >= 1
         void print()
         {
-            Node<Type>* Temp = Head; //Определяем указатель, который изначально он равен адресу начала списка
-            while(Temp!=nullptr) //До тех пор пока не встретит пустое значение
+            Node<Type>* Temp = Head; 
+            while(Temp!=nullptr) 
             {
                 cout << Temp->Data <<" -> ";
-                Temp = Temp->Next; //Указываем, что далее нам нужен следующий элемент
+                Temp = Temp->Right; 
             }
         }
         #endif // DEBUG
@@ -1674,11 +1678,10 @@ namespace SGM
             Temp1 = Root;
             Node<Type>* Temp2 = nullptr;
 
-            while(Temp1 != nullptr) //Пойдем до глубины деревья
+            while(Temp1 != nullptr) 
             {
                 if(Temp1->Data == Item)
-                {
-                    //Temp1->Data = Item;
+                {                  
                     return;
                 }
                 else{
@@ -1717,8 +1720,7 @@ namespace SGM
             while(Temp1 != nullptr)
             {
                 if(Temp1->Data == Item)
-                {
-                    //Temp1->Data = Item;
+                {                  
                     break;
                 }
                 else{
