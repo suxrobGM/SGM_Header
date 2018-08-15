@@ -1000,10 +1000,10 @@ namespace SGM
                 {
                     if(i==Size-1)
                     {
-                        NewArray[i] = 0; //Îáíóëèì êîíå÷íûé ýëåìåíò â ìàññèâå
+                        NewArray[i] = 0; 
                     }
                     else{
-                        NewArray[i] = Array[i+1]; //Ñäâèã ýëåìåíòîâ â âëåâî(<--)
+                        NewArray[i] = Array[i+1];
                     }
                 }
 
@@ -1111,7 +1111,7 @@ namespace SGM
             Size = MaxSize;
             Begin = 0;
             End = 0;
-            //IndexOfElement = 0;
+            
             if(MaxSize==0)
                 Array = new Type[++MaxSize]{0};
             else
@@ -1375,21 +1375,19 @@ namespace SGM
 //-------------------------------------------------------------------------------------------------------------------------------
     /** Template struct of Node, Node is structure data which saved itself data and address of next and previous data */
     template<class Type>
-    struct Node
+    struct BinaryNode
     {
         Type Data;          //data
-        Node<Type>* Right;  //pointer to right node (used for binary tree)
-        Node<Type>* Left;   //pointer to left node (used for binary tree)
+        BinaryNode<Type>* Right;  //pointer to right node (used for binary tree)
+        BinaryNode<Type>* Left;   //pointer to left node (used for binary tree)
 
-        Node(): Right(nullptr), Left(nullptr) {} //Default constructor
-        Node(const Type& setData): Data(setData),Right(nullptr), Left(nullptr) {}
-        Node(const Node<Type>& OtherNode) //Copying constructor
+        BinaryNode(): Right(nullptr), Left(nullptr) {} //Default constructor
+        BinaryNode(const Type& setData): Data(setData),Right(nullptr), Left(nullptr) {}
+        BinaryNode(const BinaryNode<Type>& OtherNode) //Copying constructor
         {
             this->Data = OtherNode.Data;
             this->Left = OtherNode.Left;
             this->Right = OtherNode.Right;
-            this->Right = OtherNode.Right;
-            this->Left = OtherNode.Left;
         }
     };
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -1400,9 +1398,9 @@ namespace SGM
     class ForwardList
     {
     private:
-        Node<Type>* Head;     //Указатель на начало списка
-        typedef Node<Type>* iterator;
-        typedef const Node<Type>* const_iterator;
+        BinaryNode<Type>* Head;     //Указатель на начало списка
+        typedef BinaryNode<Type>* iterator;
+        typedef const BinaryNode<Type>* const_iterator;
         typedef Type& reference;
         typedef const Type& const_reference;
 
@@ -1416,7 +1414,7 @@ namespace SGM
         {
             while(Head!=nullptr)  //Пока адрес не пусто
             {
-                Node<Type>* Temp = Head->Right;  //Временная переменная для хранения адреса следующего элемента
+                BinaryNode<Type>* Temp = Head->Right;  //Временная переменная для хранения адреса следующего элемента
                 delete Head;                     //Освобождаем адрес обозначающий начало
                 Head = Temp;                     //Меняем адрес на следующий
             }
@@ -1425,7 +1423,7 @@ namespace SGM
 		//Метод добавления элементов в список
         void push_front(const Type Value) 
         {
-            Node<Type>* Temp = new Node<Type>(); //При каждом вызове выделяется память
+            BinaryNode<Type>* Temp = new BinaryNode<Type>(); //При каждом вызове выделяется память
             Temp->Data = Value;  //Записываем Value в элемент структуры  Node
             Temp->Right = Head;  //Указываем, что след. элемент это объект по адресу Head
             Head = Temp;         //Указываем, что последний активный элемент это только что введенный
@@ -1434,8 +1432,8 @@ namespace SGM
 		//Метод добавления элементов в список
         void push_back(const Type Value) 
         {
-            Node<Type>* Temp = new Node<Type>();
-            Node<Type>* NewNode = new Node<Type>(Value);
+            BinaryNode<Type>* Temp = new BinaryNode<Type>();
+            BinaryNode<Type>* NewNode = new BinaryNode<Type>(Value);
             Temp = Head;
             while(Temp->Right != nullptr)
             {
@@ -1448,7 +1446,7 @@ namespace SGM
         {
             if(Head!=nullptr && Pos <= this->size()) //Делаем проверку на то что список не пуст и Pos не превышает число его элементов
             {
-                Node<Type>* Temp = Head;
+                BinaryNode<Type>* Temp = Head;
                 for(uint64 i=1; i<=Pos; i++)
                 {
                     Temp = Temp->Right; 
@@ -1461,9 +1459,9 @@ namespace SGM
         {
             if(Head!=nullptr && Pos!=1 && Pos < this->size() ) 
             {
-                Node<Type>* BeforeNode = Head;
-                Node<Type>* AfterNode = Head;
-                Node<Type>* NewNode = new Node<Type>(Value);
+                BinaryNode<Type>* BeforeNode = Head;
+                BinaryNode<Type>* AfterNode = Head;
+                BinaryNode<Type>* NewNode = new BinaryNode<Type>(Value);
 
                 for(uint64 i=1; i<Pos-1; i++)
                 {
@@ -1489,8 +1487,8 @@ namespace SGM
 		//Метод удаления элемента из списке
         void erase(const Type Element) 
         {
-            Node<Type>* ElementNode = Head;
-            Node<Type>* Temp = Head;
+            BinaryNode<Type>* ElementNode = Head;
+            BinaryNode<Type>* Temp = Head;
 
             
             while(ElementNode->Right!=nullptr && ElementNode->Data != Element)
@@ -1533,8 +1531,8 @@ namespace SGM
 		//Удаление одного звенья из конца списка
         void pop_back() 
         {
-            Node<Type>* Temp = Head;
-            Node<Type>* LastElement = nullptr;
+            BinaryNode<Type>* Temp = Head;
+            BinaryNode<Type>* LastElement = nullptr;
 
             while(Temp->Right!=nullptr) 
             {
@@ -1564,7 +1562,7 @@ namespace SGM
 
         const_reference back() const
         {
-            Node<Type>* Temp = Head;
+            BinaryNode<Type>* Temp = Head;
             while(Temp->Right!=nullptr)
             {
                 Temp = Temp->Right;
@@ -1579,7 +1577,7 @@ namespace SGM
 
         const_iterator end() const
         {
-            Node<Type>* Temp = Head;
+            BinaryNode<Type>* Temp = Head;
             while(Temp->Right!=nullptr)
             {
                 Temp = Temp->Right;
@@ -1597,7 +1595,7 @@ namespace SGM
         {
             while (Head!=nullptr) 
             {
-                Node<Type>* Temp = Head->Right;  
+                BinaryNode<Type>* Temp = Head->Right;  
                 delete Head;                    
                 Head = Temp;                    
             }
@@ -1614,7 +1612,7 @@ namespace SGM
         uint64 size()
         {
             uint64 Count = 0;
-            Node<Type>* Temp = Head;
+            BinaryNode<Type>* Temp = Head;
             while(Temp!=nullptr)
             {
                 Count++;
@@ -1626,7 +1624,7 @@ namespace SGM
         #if DEBUG >= 1
         void print()
         {
-            Node<Type>* Temp = Head; 
+            BinaryNode<Type>* Temp = Head; 
             while(Temp!=nullptr) 
             {
                 cout << Temp->Data <<" -> ";
@@ -1644,7 +1642,7 @@ namespace SGM
     class BinaryTree
     {
     private:
-        Node<Type>* Root;
+        BinaryNode<Type>* Root;
 
     public:
         BinaryTree(): Root(nullptr) {}
@@ -1667,7 +1665,7 @@ namespace SGM
 
         void insert(const Type Item)
         {
-            Node<Type>* Temp1 = new Node<Type>();
+            BinaryNode<Type>* Temp1 = new BinaryNode<Type>();
             if(Root==nullptr)
             {
                 Root = Temp1;
@@ -1676,7 +1674,7 @@ namespace SGM
             }
 
             Temp1 = Root;
-            Node<Type>* Temp2 = nullptr;
+            BinaryNode<Type>* Temp2 = nullptr;
 
             while(Temp1 != nullptr) 
             {
@@ -1696,7 +1694,7 @@ namespace SGM
                 }
             }
 
-            Node<Type>* NewNode = new Node<Type>(Item);
+            BinaryNode<Type>* NewNode = new BinaryNode<Type>(Item);
             if(Temp2 == nullptr)
             {
                 Root = Temp2;
@@ -1714,8 +1712,8 @@ namespace SGM
 
         void remove(const Type Item)
         {
-            Node<Type>* Temp1 = Root;
-            Node<Type>* Temp2 = nullptr;
+            BinaryNode<Type>* Temp1 = Root;
+            BinaryNode<Type>* Temp2 = nullptr;
 
             while(Temp1 != nullptr)
             {
@@ -1757,7 +1755,7 @@ namespace SGM
                 }
             }
             else{
-                Node<Type>* LeftMost = Temp1->Right;
+                BinaryNode<Type>* LeftMost = Temp1->Right;
                 Temp2 = nullptr;
 
                 while(LeftMost->Left!=nullptr)
@@ -1777,14 +1775,14 @@ namespace SGM
             }
         }
 
-        Node<Type>* getRootTree()
+        BinaryNode<Type>* getRootTree()
         {
             return this->Root;
         }
 
         bool hasItem(const Type FindingItem)
         {
-            Node<Type>* Temp = Root;
+            BinaryNode<Type>* Temp = Root;
             while(Temp != nullptr)
             {
                 if(Temp->Data == FindingItem)
@@ -1803,7 +1801,7 @@ namespace SGM
             return false;
         }
 
-        void clear(Node<Type>* RootTree)
+        void clear(BinaryNode<Type>* RootTree)
         {
             if(RootTree == nullptr)
             {
@@ -1816,7 +1814,7 @@ namespace SGM
             RootTree = nullptr;
         }
 
-        void print(Node<Type>* RootTree, uint32 Space=0, size_t t=0)
+        void print(BinaryNode<Type>* RootTree, uint32 Space=0, size_t t=0)
         {
             uint32 Count = 3;
             if(RootTree == nullptr)
