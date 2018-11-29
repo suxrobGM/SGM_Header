@@ -83,10 +83,10 @@ namespace SGM
 //----------------------------------------------  FUNCTIONS  --------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------
     /** Factorial  n! */
-    uint64 Factorial(size_t InputNum)
+    uint64 Factorial(size_t inputNum)
     {
         uint64 result=1;
-        for(uint32 i=1; i<=InputNum; i++)
+        for(uint32 i=1; i<=inputNum; i++)
         {
             result*=i;
         }
@@ -109,123 +109,123 @@ namespace SGM
 
     /** Divide inputNum by digits , Its will work only for integer number!!! */
     template<typename int_t>
-    void DivideNumsByDig(uint64 InputNum, int_t* (&Array))
+    void DivideNumsByDig(uint64 inputNumber, int_t* array)
     {
-        uint32 len = CountDigits(InputNum);
+        uint32 len = CountDigits(inputNumber);
 
         for(uint32 i=0; i<len; i++)
         {
             if(i==0)
             {
-                Array[i] = InputNum/pow(10,len-1);
+                array[i] = inputNumber/pow(10,len-1);
                 continue;
             }
-            Array[i] = InputNum/pow(10,(len-1)-i);
-            Array[i] %= 10;
+            array[i] = inputNumber/pow(10,(len-1)-i);
+            array[i] %= 10;
         }
     }
 
     /** Divide inputNum(type string) by digits numbers and convert to integer type */
     template<typename int_t>
-    void DivideNumsByDig(string InputNum, int_t* (&Array))
+    void DivideNumsByDig(string inputNumber, int_t* array)
     {
-        uint32 len = InputNum.length();
+        uint32 len = inputNumber.length();
         for(uint32 i=0; i<len; i++)
         {
-            char temp = InputNum[i];
-            Array[i] = atoi(&temp); // char to int
+            char temp = inputNumber[i];
+            array[i] = atoi(&temp); // char to int
         }
     }
 
     /** Get maximum of number in the array */
     template <typename Type>
-    Type GetMax(const Type* Array, uint32 Size)
+    Type GetMax(const Type* array, uint32 size)
     {
-        Type Max = Array[0];
+        Type Max = array[0];
 
-        for(uint32 i=0; i<Size; i++)
+        for(uint32 i=0; i<size; i++)
         {
-            if(Max<Array[i])
-                Max = Array[i];
+            if(Max<array[i])
+                Max = array[i];
         }
         return Max;
     }
 
     /** Get maximum of number in the range: StartIterator...EndIterator */
     template <typename FowardIterator>
-    FowardIterator GetMax(FowardIterator* Start, FowardIterator* End)
+    FowardIterator GetMax(FowardIterator* start, FowardIterator* end)
     {
-        FowardIterator* Max = Start;
-        uint32 Size = End - Start;
+        FowardIterator* Max = start;
+        uint32 Size = end - start;
 
         for(uint32 i=0; i<=Size; i++)
         {
-            if(*(Start+i) > *Max)
-            *Max = *(Start+i);
+            if(*(start+i) > *Max)
+            *Max = *(start+i);
         }
         return *Max;
     }
 
     /** Get maximum of 2 numbers */
     template <typename Type>
-    inline Type GetMax(Type Num1, Type Num2)
+    inline Type GetMax(Type firstNumber, Type secondNumber)
     {
-        return (Num1>=Num2 ? Num1:Num2);
+        return (firstNumber>=secondNumber ? firstNumber:secondNumber);
     }
 
     /** Get minimum of number in the array */
     template <typename Type>
-    Type GetMin(const Type* Array, uint32 Size)
+    Type GetMin(const Type* array, uint32 size)
     {
-        Type Min = Array[0];
+        Type Min = array[0];
 
-        for(uint32 i=0; i<Size; i++)
+        for(uint32 i=0; i<size; i++)
         {
-            if(Min>Array[i])
-                Min = Array[i];
+            if(Min>array[i])
+                Min = array[i];
         }
         return Min;
     }
 
     /** Get minimum of number in the range: StartIterator...EndIterator */
     template <typename FowardIterator>
-    FowardIterator GetMin(FowardIterator* Start, FowardIterator* End)
+    FowardIterator GetMin(FowardIterator* start, FowardIterator* end)
     {
-        FowardIterator* Min = Start;
-        uint32 Size = End - Start;
+        FowardIterator* Min = start;
+        uint32 Size = end - start;
 
         for(uint32 i=0; i<=Size; i++)
         {
-            if(*(Start+i) < *Min)
-                *Min = *(Start+i);
+            if(*(start+i) < *Min)
+                *Min = *(start+i);
         }
         return *Min;
     }
 
     /** Get minimum of 2 numbers */
     template <typename Type>
-    inline Type GetMin(Type Num1, Type Num2)
+    inline Type GetMin(Type firstNumber, Type secondNumber)
     {
-        return (Num1<=Num2 ? Num1:Num2);
+        return (firstNumber<=secondNumber ? firstNumber:secondNumber);
     }
 
 
     /** Sort 1D array by increasing order(Algorithm Bubble Sort, complex O(N^2)) */
     template <typename ArrayType>
-    void SortInc_B(ArrayType* (&Array), uint32 Size)
+    void SortInc_B(ArrayType* array, uint32 size)
     {
         ArrayType Temp; // temporary variable
 
         //Algorithm "Buble sort"
-        for(uint32 i=0; i<Size; i++)
+        for(uint32 i=0; i<size; i++)
         {
-            for(uint32 j=0; j<(Size-i-1); j++)
+            for(uint32 j=0; j<(size-i-1); j++)
             {
-                if(Array[j]>Array[j+1])
+                if(array[j]>array[j+1])
                 {
-                    Temp = Array[j];
-                    Array[j] = Array[j+1];
-                    Array[j+1]= Temp;
+                    Temp = array[j];
+                    array[j] = array[j+1];
+                    array[j+1]= Temp;
                 }
             }
         }
@@ -233,20 +233,20 @@ namespace SGM
 
     /** Sort 1D array by decreasing order(Algorithm Bubble Sort, complex O(N^2)) */
     template <typename ArrayType>
-    void SortDec_B(ArrayType *(&Array), uint32 Size) // Sort array by decreasing order
+    void SortDec_B(ArrayType* array, uint32 size) // Sort array by decreasing order
     {
         ArrayType Temp; // temporary variable
 
         //Algorithm "Buble sort"
-        for(uint32 i=0; i<Size; i++)
+        for(uint32 i=0; i<size; i++)
         {
-            for(uint32 j=0; j<(Size-i-1); j++)
+            for(uint32 j=0; j<(size-i-1); j++)
             {
-                if(Array[j]<Array[j+1])
+                if(array[j]<array[j+1])
                 {
-                    Temp = Array[j];
-                    Array[j] = Array[j+1];
-                    Array[j+1]= Temp;
+                    Temp = array[j];
+                    array[j] = array[j+1];
+                    array[j+1]= Temp;
                 }
             }
         }
@@ -255,47 +255,47 @@ namespace SGM
 
     /** Input whatever array in the Console */
     template <typename Type>
-    inline void ScanArray(Type* Array, uint32 Size)
+    inline void ScanArray(Type* array, uint32 size)
     {
-        for(uint32 i=0; i<Size; i++)
+        for(uint32 i=0; i<size; i++)
         {
-            cin >> Array[i];
+            cin >> array[i];
         }
     }
 
     /** Print whatever array to the display */
     template <typename Type>
-    inline void PrintArray(const Type* Array, uint32 Size)
+    inline void PrintArray(const Type* array, uint32 size)
     {
-        for(uint32 i=0; i<Size; i++)
+        for(uint32 i=0; i<size; i++)
         {
-            cout << Array[i] << std::setw(4);
+            cout << array[i] << std::setw(4);
         }
     }
 
     /** Recursive Binary Search complex O(log(n)) */
     template <typename Type>
-    int BinarySearch_Recursive(const Type* Array, uint32 Left, uint32 Right, const Type FindElement)
+    int BinarySearch_Recursive(const Type* array, uint32 left, uint32 right, const Type findElement)
     {
         //int32 Left = 1;
         //int32 Right = Size;
-        int Middle = (Left + Right)/2;
+        int Middle = (left + right)/2;
 
-        if(Right >= Left)
+        if(right >= left)
         {           
-            Middle = (Left + Right)/2;
+            Middle = (left + right)/2;
 
-            if(Array[Middle] == FindElement)
+            if(array[Middle] == findElement)
             {
                 return Middle;                
             }
-            if(Array[Middle] > FindElement)
+            if(array[Middle] > findElement)
             {
-                return Recursive_BinarySearch(Array, Left, Middle - 1, FindElement);
+                return Recursive_BinarySearch(array, left, Middle - 1, findElement);
             }
             else //if(Array[Middle] < FindElement)
             {
-                return Recursive_BinarySearch(Array, Middle + 1, Right, FindElement);
+                return Recursive_BinarySearch(array, Middle + 1, right, findElement);
             }
         }
 		return -1;
@@ -303,25 +303,25 @@ namespace SGM
 
     /** Simple Binary Search complex O(log(n)), if element was found in the sorted array, then function returned position of element in sorted array, otherwise function will return -1 */
     template <typename Type>
-    int BinarySearch(const Type* Array, uint32 Size, Type FindElement)
+    int BinarySearch(const Type* array, uint32 size, Type findElement)
     {
         int32 low = 1;
-        int32 high = Size;
+        int32 high = size;
         bool Founded = false;
 
         while(low<=high)
         {
             int32 mid = (low+high)/2;
 
-            if(Array[mid]>FindElement)
+            if(array[mid]>findElement)
             {
                 high = mid-1;
             }
-            else if(Array[mid]<FindElement)
+            else if(array[mid]<findElement)
             {
                 low = mid+1;
             }
-            else if(Array[mid]==FindElement)
+            else if(array[mid]==findElement)
             {
                 return mid;                
             }
@@ -331,26 +331,26 @@ namespace SGM
 
     /** Function calculate the greatest common divisor(GCD) two natural numbers */
     template<typename int_t>
-    int_t GCD(int_t num1, int_t num2)
+    int_t GCD(int_t firstNumber, int_t secondNumber)
     {
-        while(num1*num2>0)
+        while(firstNumber*secondNumber>0)
         {
-            if(num1>=num2)
+            if(firstNumber>=secondNumber)
             {
-                num1 %= num2;
+                firstNumber %= secondNumber;
             }
             else{
-                num2 %= num1;
+                secondNumber %= firstNumber;
             }
         }
-        return num1+num2; //ÍÎÄ
+        return firstNumber+secondNumber; //ÍÎÄ
     }
 
     /** Function calculate the least common multiples(LCM) two natural numbers */
     template<typename int_t>
-    int_t LCM(int_t num1, int_t num2)
+    int_t LCM(int_t firstNumber, int_t secondNumber)
     {
-        return (num1*num2) / GCD(num1, num2); //ÍÎÊ (íàèìåíüøåå îáùåå êðàòíîå)
+        return (firstNumber*secondNumber) / GCD(firstNumber, secondNumber); //ÍÎÊ (íàèìåíüøåå îáùåå êðàòíîå)
     }
 
 	/**
@@ -361,7 +361,7 @@ namespace SGM
 	* @param HaveTwoIdenChar - Have two identical consecutive characters in the password, by default its activated
 	* @return Function will return generated password which satisfying the requirements
 	*/
-	string GeneratePassword(size_t PassLength, size_t NumberOfUpperAlpha, size_t NumberOfLowerAlpha, size_t NumberOfDigit, bool HaveTwoIdenChar = false)
+	string GeneratePassword(size_t passLength, size_t numberOfUpperAlpha, size_t numberOfLowerAlpha, size_t numberOfDigit, bool haveTwoIdenChar = false)
 	{
 		srand((size_t)time(false));
 		const string Chars[] = { "ABCDEFGHIJKLMNOPQARTUVWXYZ", "abcdefghijklmnopqrstuvwxyz", "0123456789" };
@@ -370,34 +370,34 @@ namespace SGM
 		const size_t NumbersLen = Chars[2].length();
 		string Password;
 
-		if ((NumberOfUpperAlpha + NumberOfLowerAlpha + NumberOfDigit) > PassLength)
+		if ((numberOfUpperAlpha + numberOfLowerAlpha + numberOfDigit) > passLength)
 		{
 			throw runtime_error("Argument ERROR: Number of upper alphabets and Number of lower alphabets and Number of digits more than Password length \n");
 		}
 
-		for (size_t i = 1; i <= NumberOfUpperAlpha; i++)
+		for (size_t i = 1; i <= numberOfUpperAlpha; i++)
 		{
 			Password.push_back(Chars[0][0 + rand() % UpperAlphLen]);
 		}
-		for (size_t i = 1; i <= NumberOfLowerAlpha; i++)
+		for (size_t i = 1; i <= numberOfLowerAlpha; i++)
 		{
 			Password.push_back(Chars[1][0 + rand() % LowerAlphLen]);
 		}
-		for (size_t i = 1; i <= NumberOfDigit; i++)
+		for (size_t i = 1; i <= numberOfDigit; i++)
 		{
 			Password.push_back(Chars[2][0 + rand() % NumbersLen]);
 		}
 
-		for (size_t i = 1; i <= PassLength; i++)
+		for (size_t i = 1; i <= passLength; i++)
 		{
-			swap(Password[0 + rand() % PassLength], Password[0 + rand() % PassLength]);
+			swap(Password[0 + rand() % passLength], Password[0 + rand() % passLength]);
 		}
 
-		if (!HaveTwoIdenChar)
+		if (!haveTwoIdenChar)
 		{
-			for (size_t i = 0; i<PassLength; i++)
+			for (size_t i = 0; i<passLength; i++)
 			{
-				if (i != PassLength - 1 && Password[i] == Password[i + 1])
+				if (i != passLength - 1 && Password[i] == Password[i + 1])
 				{
 					string Temp = Chars[0 + rand() % 2];
 					Password[i] = Temp[0 + rand() % Temp.length()];
@@ -569,9 +569,9 @@ namespace SGM
                 uint32 j=0;
                 for(; j<size_det; j++)
                 {
-                    cout << setw(4) << det[i][j] << setw(4);
+                    cout << std::setw(4) << det[i][j] << std::setw(4);
                 }
-                cout << "|" << endl;
+                cout << "|" << std::endl;
 
                 if((i != size_det-1) && (j != size_det-1)){
                     cout << "|";
